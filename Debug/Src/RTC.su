@@ -1,0 +1,4 @@
+../Src/RTC.c:19:19:RTC_WkUp_Init	16	static
+../Src/RTC.c:36:6:RTC_WKUP_IRQHandler	8	static
+../Src/RTC.c:42:6:HAL_RTCEx_WakeUpTimerEventCallback	16	static
+../Src/RTC.c:48:20:RTC_Init	104	static

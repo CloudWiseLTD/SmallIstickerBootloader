@@ -1,0 +1,4 @@
+UARTDrv.c:19:6:SerialKeyPressedCh	3
+UARTDrv.c:39:7:SerialKeyPressed	2
+UARTDrv.c:53:7:SerialPutChar	2
+UARTDrv.c:62:7:WaitForEndTx	2

@@ -1,0 +1,6 @@
+ADC.c:33:12:ActivateScan	3
+ADC.c:62:6:ADC1_Init	10
+ADC.c:206:6:DMA1_Channel1_IRQHandler	1
+ADC.c:216:6:HAL_ADC_ConvCpltCallback	2
+ADC.c:233:6:ADC1_DeInit	1
+ADC.c:238:6:DMA1_CH1_DeInit	1

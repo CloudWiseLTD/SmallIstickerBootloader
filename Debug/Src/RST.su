@@ -1,0 +1,10 @@
+../Src/RST.c:19:7:Error_Handler	16	static
+../Src/RST.c:29:8:Disable_Interrupts	8	static
+../Src/RST.c:34:6:Disable_Per_Clocks	4	static
+../Src/RST.c:56:6:GPIO_Init	40	static
+../Src/RST.c:84:6:Enable_GPIO_Clocks	40	static
+../Src/RST.c:106:6:Regulator_Init	40	static
+../Src/RST.c:116:6:Regulator_DeInit	40	static
+../Src/RST.c:126:6:GPS_GPIO_Close	40	static
+../Src/RST.c:136:7:DeInit_Peripherals	8	static
+../Src/RST.c:171:6:GPIO_Temperature	48	static

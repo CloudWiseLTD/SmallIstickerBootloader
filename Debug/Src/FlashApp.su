@@ -1,0 +1,3 @@
+../Src/FlashApp.c:18:13:Flash_Init	32	static
+../Src/FlashApp.c:61:13:Flash_Erase_Sector	32	static
+../Src/FlashApp.c:122:13:Flash_Check	32	static

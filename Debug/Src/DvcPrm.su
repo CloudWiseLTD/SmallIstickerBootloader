@@ -1,0 +1,7 @@
+../Src/DvcPrm.c:21:13:DevParms_Program_Flash	48	static
+../Src/DvcPrm.c:120:13:DevParms_Read_Flash	32	static
+../Src/DvcPrm.c:158:7:CRC_Calc_Flash_Data	24	static
+../Src/DvcPrm.c:174:13:DevParms_Burn_Flash	32	static
+../Src/DvcPrm.c:200:15:Flash_Calc_Version_CRC16	32	static
+../Src/DvcPrm.c:259:8:DevParms_Set_Default	24	static
+../Src/DvcPrm.c:305:6:Get_Param_Size_Without_CRC	24	static

@@ -1,0 +1,4 @@
+../Src/UARTDrv.c:19:6:SerialKeyPressedCh	16	static
+../Src/UARTDrv.c:39:7:SerialKeyPressed	16	static
+../Src/UARTDrv.c:53:7:SerialPutChar	16	static
+../Src/UARTDrv.c:62:7:WaitForEndTx	16	static

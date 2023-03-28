@@ -1,0 +1,13 @@
+main.c:120:6:PrintVersion	1
+main.c:126:5:main	19
+main.c:512:6:init_charge_tables	1
+main.c:533:6:ConvertMeasurementUnits	3
+main.c:573:6:SetResistor	1
+main.c:577:6:SetChargingMode1	1
+main.c:632:4:TestVoltage	6
+main.c:689:6:CheckVoltages	4
+main.c:876:6:BlinkSequence	1
+main.c:887:6:AllLights	1
+main.c:924:6:SystemClock_Config	4
+main.c:984:6:WD_Init	1
+main.c:996:6:WD_Refresh	1

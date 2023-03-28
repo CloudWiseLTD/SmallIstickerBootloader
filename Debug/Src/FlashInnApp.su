@@ -1,0 +1,6 @@
+../Src/FlashInnApp.c:16:6:CRC16_Clc	40	static
+../Src/FlashInnApp.c:49:14:Transfer_Version	32	static
+../Src/FlashInnApp.c:120:14:Inner_Flash_Erase	32	static
+../Src/FlashInnApp.c:139:14:Inner_Flash_Write_Version	32	static
+../Src/FlashInnApp.c:167:14:Inner_Flash_Write_Version_Mod	40	static
+../Src/FlashInnApp.c:212:14:Inner_Flash_ClcCrc16	48	static

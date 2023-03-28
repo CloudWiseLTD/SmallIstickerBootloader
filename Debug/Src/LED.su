@@ -1,0 +1,4 @@
+../Src/LED.c:15:7:Led_GPIO_Init	40	static
+../Src/LED.c:44:7:BlinkLed	24	static
+../Src/LED.c:67:6:GPIO_Config_Params	24	static
+../Src/LED.c:75:7:GPIO_Config_Params_AF	24	static

@@ -1,0 +1,10 @@
+RST.c:19:7:Error_Handler	1
+RST.c:29:8:Disable_Interrupts	1
+RST.c:34:6:Disable_Per_Clocks	1
+RST.c:56:6:GPIO_Init	1
+RST.c:84:6:Enable_GPIO_Clocks	1
+RST.c:106:6:Regulator_Init	1
+RST.c:116:6:Regulator_DeInit	1
+RST.c:126:6:GPS_GPIO_Close	1
+RST.c:136:7:DeInit_Peripherals	1
+RST.c:171:6:GPIO_Temperature	2

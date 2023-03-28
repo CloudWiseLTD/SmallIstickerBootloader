@@ -1,0 +1,2 @@
+../Src/SPI.c:19:6:SPI2_Init	48	static
+../Src/SPI.c:78:6:SPI2_DeInit	8	static

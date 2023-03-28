@@ -1,0 +1,2 @@
+../Src/UART.c:19:6:USART1_Init	40	static
+../Src/UART.c:73:7:USART1_DeInit	8	static

@@ -1,0 +1,3 @@
+../Src/Common.c:33:6:Int2Str	32	static
+../Src/Common.c:63:10:Str2Int	32	static
+../Src/Common.c:244:6:Going_To_APP	16	static,ignoring_inline_asm

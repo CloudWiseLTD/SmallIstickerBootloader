@@ -1,0 +1,13 @@
+../Src/main.c:120:6:PrintVersion	8	static
+../Src/main.c:126:5:main	32	static
+../Src/main.c:512:6:init_charge_tables	4	static
+../Src/main.c:533:6:ConvertMeasurementUnits	32	static
+../Src/main.c:573:6:SetResistor	16	static
+../Src/main.c:577:6:SetChargingMode1	16	static
+../Src/main.c:632:4:TestVoltage	40	static
+../Src/main.c:689:6:CheckVoltages	16	static
+../Src/main.c:876:6:BlinkSequence	8	static
+../Src/main.c:887:6:AllLights	8	static
+../Src/main.c:924:6:SystemClock_Config	96	static
+../Src/main.c:984:6:WD_Init	8	static
+../Src/main.c:996:6:WD_Refresh	8	static

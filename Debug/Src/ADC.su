@@ -1,0 +1,6 @@
+../Src/ADC.c:33:12:ActivateScan	16	static
+../Src/ADC.c:62:6:ADC1_Init	24	static
+../Src/ADC.c:206:6:DMA1_Channel1_IRQHandler	8	static
+../Src/ADC.c:216:6:HAL_ADC_ConvCpltCallback	16	static
+../Src/ADC.c:233:6:ADC1_DeInit	8	static
+../Src/ADC.c:238:6:DMA1_CH1_DeInit	8	static

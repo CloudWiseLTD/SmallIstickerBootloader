@@ -1,0 +1,271 @@
+################################################################################
+# Automatically-generated file. Do not edit!
+# Toolchain: GNU Tools for STM32 (10.3-2021.10)
+################################################################################
+
+# Add inputs and outputs from these tool invocations to the build variables 
+C_SRCS += \
+../HAL/src/stm32l4xx_hal.c \
+../HAL/src/stm32l4xx_hal_adc.c \
+../HAL/src/stm32l4xx_hal_adc_ex.c \
+../HAL/src/stm32l4xx_hal_can.c \
+../HAL/src/stm32l4xx_hal_comp.c \
+../HAL/src/stm32l4xx_hal_cortex.c \
+../HAL/src/stm32l4xx_hal_crc.c \
+../HAL/src/stm32l4xx_hal_crc_ex.c \
+../HAL/src/stm32l4xx_hal_cryp.c \
+../HAL/src/stm32l4xx_hal_cryp_ex.c \
+../HAL/src/stm32l4xx_hal_dac.c \
+../HAL/src/stm32l4xx_hal_dac_ex.c \
+../HAL/src/stm32l4xx_hal_dfsdm.c \
+../HAL/src/stm32l4xx_hal_dma.c \
+../HAL/src/stm32l4xx_hal_firewall.c \
+../HAL/src/stm32l4xx_hal_flash.c \
+../HAL/src/stm32l4xx_hal_flash_ex.c \
+../HAL/src/stm32l4xx_hal_flash_ramfunc.c \
+../HAL/src/stm32l4xx_hal_gpio.c \
+../HAL/src/stm32l4xx_hal_hcd.c \
+../HAL/src/stm32l4xx_hal_i2c.c \
+../HAL/src/stm32l4xx_hal_i2c_ex.c \
+../HAL/src/stm32l4xx_hal_irda.c \
+../HAL/src/stm32l4xx_hal_iwdg.c \
+../HAL/src/stm32l4xx_hal_lcd.c \
+../HAL/src/stm32l4xx_hal_lptim.c \
+../HAL/src/stm32l4xx_hal_msp_template.c \
+../HAL/src/stm32l4xx_hal_nand.c \
+../HAL/src/stm32l4xx_hal_nor.c \
+../HAL/src/stm32l4xx_hal_opamp.c \
+../HAL/src/stm32l4xx_hal_opamp_ex.c \
+../HAL/src/stm32l4xx_hal_pcd.c \
+../HAL/src/stm32l4xx_hal_pcd_ex.c \
+../HAL/src/stm32l4xx_hal_pwr.c \
+../HAL/src/stm32l4xx_hal_pwr_ex.c \
+../HAL/src/stm32l4xx_hal_qspi.c \
+../HAL/src/stm32l4xx_hal_rcc.c \
+../HAL/src/stm32l4xx_hal_rcc_ex.c \
+../HAL/src/stm32l4xx_hal_rng.c \
+../HAL/src/stm32l4xx_hal_rtc.c \
+../HAL/src/stm32l4xx_hal_rtc_ex.c \
+../HAL/src/stm32l4xx_hal_sai.c \
+../HAL/src/stm32l4xx_hal_sd.c \
+../HAL/src/stm32l4xx_hal_smartcard.c \
+../HAL/src/stm32l4xx_hal_smartcard_ex.c \
+../HAL/src/stm32l4xx_hal_smbus.c \
+../HAL/src/stm32l4xx_hal_spi.c \
+../HAL/src/stm32l4xx_hal_spi_ex.c \
+../HAL/src/stm32l4xx_hal_sram.c \
+../HAL/src/stm32l4xx_hal_swpmi.c \
+../HAL/src/stm32l4xx_hal_tim.c \
+../HAL/src/stm32l4xx_hal_tim_ex.c \
+../HAL/src/stm32l4xx_hal_timebase_tim_template.c \
+../HAL/src/stm32l4xx_hal_tsc.c \
+../HAL/src/stm32l4xx_hal_uart.c \
+../HAL/src/stm32l4xx_hal_uart_ex.c \
+../HAL/src/stm32l4xx_hal_usart.c \
+../HAL/src/stm32l4xx_hal_wwdg.c \
+../HAL/src/stm32l4xx_ll_adc.c \
+../HAL/src/stm32l4xx_ll_comp.c \
+../HAL/src/stm32l4xx_ll_crc.c \
+../HAL/src/stm32l4xx_ll_crs.c \
+../HAL/src/stm32l4xx_ll_dac.c \
+../HAL/src/stm32l4xx_ll_dma.c \
+../HAL/src/stm32l4xx_ll_exti.c \
+../HAL/src/stm32l4xx_ll_fmc.c \
+../HAL/src/stm32l4xx_ll_gpio.c \
+../HAL/src/stm32l4xx_ll_i2c.c \
+../HAL/src/stm32l4xx_ll_lptim.c \
+../HAL/src/stm32l4xx_ll_lpuart.c \
+../HAL/src/stm32l4xx_ll_opamp.c \
+../HAL/src/stm32l4xx_ll_pwr.c \
+../HAL/src/stm32l4xx_ll_rcc.c \
+../HAL/src/stm32l4xx_ll_rng.c \
+../HAL/src/stm32l4xx_ll_rtc.c \
+../HAL/src/stm32l4xx_ll_sdmmc.c \
+../HAL/src/stm32l4xx_ll_spi.c \
+../HAL/src/stm32l4xx_ll_swpmi.c \
+../HAL/src/stm32l4xx_ll_tim.c \
+../HAL/src/stm32l4xx_ll_usart.c \
+../HAL/src/stm32l4xx_ll_usb.c \
+../HAL/src/stm32l4xx_ll_utils.c 
+
+OBJS += \
+./HAL/src/stm32l4xx_hal.o \
+./HAL/src/stm32l4xx_hal_adc.o \
+./HAL/src/stm32l4xx_hal_adc_ex.o \
+./HAL/src/stm32l4xx_hal_can.o \
+./HAL/src/stm32l4xx_hal_comp.o \
+./HAL/src/stm32l4xx_hal_cortex.o \
+./HAL/src/stm32l4xx_hal_crc.o \
+./HAL/src/stm32l4xx_hal_crc_ex.o \
+./HAL/src/stm32l4xx_hal_cryp.o \
+./HAL/src/stm32l4xx_hal_cryp_ex.o \
+./HAL/src/stm32l4xx_hal_dac.o \
+./HAL/src/stm32l4xx_hal_dac_ex.o \
+./HAL/src/stm32l4xx_hal_dfsdm.o \
+./HAL/src/stm32l4xx_hal_dma.o \
+./HAL/src/stm32l4xx_hal_firewall.o \
+./HAL/src/stm32l4xx_hal_flash.o \
+./HAL/src/stm32l4xx_hal_flash_ex.o \
+./HAL/src/stm32l4xx_hal_flash_ramfunc.o \
+./HAL/src/stm32l4xx_hal_gpio.o \
+./HAL/src/stm32l4xx_hal_hcd.o \
+./HAL/src/stm32l4xx_hal_i2c.o \
+./HAL/src/stm32l4xx_hal_i2c_ex.o \
+./HAL/src/stm32l4xx_hal_irda.o \
+./HAL/src/stm32l4xx_hal_iwdg.o \
+./HAL/src/stm32l4xx_hal_lcd.o \
+./HAL/src/stm32l4xx_hal_lptim.o \
+./HAL/src/stm32l4xx_hal_msp_template.o \
+./HAL/src/stm32l4xx_hal_nand.o \
+./HAL/src/stm32l4xx_hal_nor.o \
+./HAL/src/stm32l4xx_hal_opamp.o \
+./HAL/src/stm32l4xx_hal_opamp_ex.o \
+./HAL/src/stm32l4xx_hal_pcd.o \
+./HAL/src/stm32l4xx_hal_pcd_ex.o \
+./HAL/src/stm32l4xx_hal_pwr.o \
+./HAL/src/stm32l4xx_hal_pwr_ex.o \
+./HAL/src/stm32l4xx_hal_qspi.o \
+./HAL/src/stm32l4xx_hal_rcc.o \
+./HAL/src/stm32l4xx_hal_rcc_ex.o \
+./HAL/src/stm32l4xx_hal_rng.o \
+./HAL/src/stm32l4xx_hal_rtc.o \
+./HAL/src/stm32l4xx_hal_rtc_ex.o \
+./HAL/src/stm32l4xx_hal_sai.o \
+./HAL/src/stm32l4xx_hal_sd.o \
+./HAL/src/stm32l4xx_hal_smartcard.o \
+./HAL/src/stm32l4xx_hal_smartcard_ex.o \
+./HAL/src/stm32l4xx_hal_smbus.o \
+./HAL/src/stm32l4xx_hal_spi.o \
+./HAL/src/stm32l4xx_hal_spi_ex.o \
+./HAL/src/stm32l4xx_hal_sram.o \
+./HAL/src/stm32l4xx_hal_swpmi.o \
+./HAL/src/stm32l4xx_hal_tim.o \
+./HAL/src/stm32l4xx_hal_tim_ex.o \
+./HAL/src/stm32l4xx_hal_timebase_tim_template.o \
+./HAL/src/stm32l4xx_hal_tsc.o \
+./HAL/src/stm32l4xx_hal_uart.o \
+./HAL/src/stm32l4xx_hal_uart_ex.o \
+./HAL/src/stm32l4xx_hal_usart.o \
+./HAL/src/stm32l4xx_hal_wwdg.o \
+./HAL/src/stm32l4xx_ll_adc.o \
+./HAL/src/stm32l4xx_ll_comp.o \
+./HAL/src/stm32l4xx_ll_crc.o \
+./HAL/src/stm32l4xx_ll_crs.o \
+./HAL/src/stm32l4xx_ll_dac.o \
+./HAL/src/stm32l4xx_ll_dma.o \
+./HAL/src/stm32l4xx_ll_exti.o \
+./HAL/src/stm32l4xx_ll_fmc.o \
+./HAL/src/stm32l4xx_ll_gpio.o \
+./HAL/src/stm32l4xx_ll_i2c.o \
+./HAL/src/stm32l4xx_ll_lptim.o \
+./HAL/src/stm32l4xx_ll_lpuart.o \
+./HAL/src/stm32l4xx_ll_opamp.o \
+./HAL/src/stm32l4xx_ll_pwr.o \
+./HAL/src/stm32l4xx_ll_rcc.o \
+./HAL/src/stm32l4xx_ll_rng.o \
+./HAL/src/stm32l4xx_ll_rtc.o \
+./HAL/src/stm32l4xx_ll_sdmmc.o \
+./HAL/src/stm32l4xx_ll_spi.o \
+./HAL/src/stm32l4xx_ll_swpmi.o \
+./HAL/src/stm32l4xx_ll_tim.o \
+./HAL/src/stm32l4xx_ll_usart.o \
+./HAL/src/stm32l4xx_ll_usb.o \
+./HAL/src/stm32l4xx_ll_utils.o 
+
+C_DEPS += \
+./HAL/src/stm32l4xx_hal.d \
+./HAL/src/stm32l4xx_hal_adc.d \
+./HAL/src/stm32l4xx_hal_adc_ex.d \
+./HAL/src/stm32l4xx_hal_can.d \
+./HAL/src/stm32l4xx_hal_comp.d \
+./HAL/src/stm32l4xx_hal_cortex.d \
+./HAL/src/stm32l4xx_hal_crc.d \
+./HAL/src/stm32l4xx_hal_crc_ex.d \
+./HAL/src/stm32l4xx_hal_cryp.d \
+./HAL/src/stm32l4xx_hal_cryp_ex.d \
+./HAL/src/stm32l4xx_hal_dac.d \
+./HAL/src/stm32l4xx_hal_dac_ex.d \
+./HAL/src/stm32l4xx_hal_dfsdm.d \
+./HAL/src/stm32l4xx_hal_dma.d \
+./HAL/src/stm32l4xx_hal_firewall.d \
+./HAL/src/stm32l4xx_hal_flash.d \
+./HAL/src/stm32l4xx_hal_flash_ex.d \
+./HAL/src/stm32l4xx_hal_flash_ramfunc.d \
+./HAL/src/stm32l4xx_hal_gpio.d \
+./HAL/src/stm32l4xx_hal_hcd.d \
+./HAL/src/stm32l4xx_hal_i2c.d \
+./HAL/src/stm32l4xx_hal_i2c_ex.d \
+./HAL/src/stm32l4xx_hal_irda.d \
+./HAL/src/stm32l4xx_hal_iwdg.d \
+./HAL/src/stm32l4xx_hal_lcd.d \
+./HAL/src/stm32l4xx_hal_lptim.d \
+./HAL/src/stm32l4xx_hal_msp_template.d \
+./HAL/src/stm32l4xx_hal_nand.d \
+./HAL/src/stm32l4xx_hal_nor.d \
+./HAL/src/stm32l4xx_hal_opamp.d \
+./HAL/src/stm32l4xx_hal_opamp_ex.d \
+./HAL/src/stm32l4xx_hal_pcd.d \
+./HAL/src/stm32l4xx_hal_pcd_ex.d \
+./HAL/src/stm32l4xx_hal_pwr.d \
+./HAL/src/stm32l4xx_hal_pwr_ex.d \
+./HAL/src/stm32l4xx_hal_qspi.d \
+./HAL/src/stm32l4xx_hal_rcc.d \
+./HAL/src/stm32l4xx_hal_rcc_ex.d \
+./HAL/src/stm32l4xx_hal_rng.d \
+./HAL/src/stm32l4xx_hal_rtc.d \
+./HAL/src/stm32l4xx_hal_rtc_ex.d \
+./HAL/src/stm32l4xx_hal_sai.d \
+./HAL/src/stm32l4xx_hal_sd.d \
+./HAL/src/stm32l4xx_hal_smartcard.d \
+./HAL/src/stm32l4xx_hal_smartcard_ex.d \
+./HAL/src/stm32l4xx_hal_smbus.d \
+./HAL/src/stm32l4xx_hal_spi.d \
+./HAL/src/stm32l4xx_hal_spi_ex.d \
+./HAL/src/stm32l4xx_hal_sram.d \
+./HAL/src/stm32l4xx_hal_swpmi.d \
+./HAL/src/stm32l4xx_hal_tim.d \
+./HAL/src/stm32l4xx_hal_tim_ex.d \
+./HAL/src/stm32l4xx_hal_timebase_tim_template.d \
+./HAL/src/stm32l4xx_hal_tsc.d \
+./HAL/src/stm32l4xx_hal_uart.d \
+./HAL/src/stm32l4xx_hal_uart_ex.d \
+./HAL/src/stm32l4xx_hal_usart.d \
+./HAL/src/stm32l4xx_hal_wwdg.d \
+./HAL/src/stm32l4xx_ll_adc.d \
+./HAL/src/stm32l4xx_ll_comp.d \
+./HAL/src/stm32l4xx_ll_crc.d \
+./HAL/src/stm32l4xx_ll_crs.d \
+./HAL/src/stm32l4xx_ll_dac.d \
+./HAL/src/stm32l4xx_ll_dma.d \
+./HAL/src/stm32l4xx_ll_exti.d \
+./HAL/src/stm32l4xx_ll_fmc.d \
+./HAL/src/stm32l4xx_ll_gpio.d \
+./HAL/src/stm32l4xx_ll_i2c.d \
+./HAL/src/stm32l4xx_ll_lptim.d \
+./HAL/src/stm32l4xx_ll_lpuart.d \
+./HAL/src/stm32l4xx_ll_opamp.d \
+./HAL/src/stm32l4xx_ll_pwr.d \
+./HAL/src/stm32l4xx_ll_rcc.d \
+./HAL/src/stm32l4xx_ll_rng.d \
+./HAL/src/stm32l4xx_ll_rtc.d \
+./HAL/src/stm32l4xx_ll_sdmmc.d \
+./HAL/src/stm32l4xx_ll_spi.d \
+./HAL/src/stm32l4xx_ll_swpmi.d \
+./HAL/src/stm32l4xx_ll_tim.d \
+./HAL/src/stm32l4xx_ll_usart.d \
+./HAL/src/stm32l4xx_ll_usb.d \
+./HAL/src/stm32l4xx_ll_utils.d 
+
+
+# Each subdirectory must supply rules for building sources it contributes
+HAL/src/%.o HAL/src/%.su HAL/src/%.cyclo: ../HAL/src/%.c HAL/src/subdir.mk
+	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g -c -I"C:/Projects/CloudWise/IStickerBootloaderOpt/TinyBoot/Hdr" -I"C:/Projects/CloudWise/IStickerBootloaderOpt/TinyBoot/Src" -I"C:/Projects/CloudWise/IStickerBootloaderOpt/TinyBoot/Device/CMSIS" -I"C:/Projects/CloudWise/IStickerBootloaderOpt/TinyBoot/HAL/inc" -I"C:/Projects/CloudWise/IStickerBootloaderOpt/TinyBoot/Device/ST" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfloat-abi=soft -mthumb -o "$@"
+
+clean: clean-HAL-2f-src
+
+clean-HAL-2f-src:
+	-$(RM) ./HAL/src/stm32l4xx_hal.cyclo ./HAL/src/stm32l4xx_hal.d ./HAL/src/stm32l4xx_hal.o ./HAL/src/stm32l4xx_hal.su ./HAL/src/stm32l4xx_hal_adc.cyclo ./HAL/src/stm32l4xx_hal_adc.d ./HAL/src/stm32l4xx_hal_adc.o ./HAL/src/stm32l4xx_hal_adc.su ./HAL/src/stm32l4xx_hal_adc_ex.cyclo ./HAL/src/stm32l4xx_hal_adc_ex.d ./HAL/src/stm32l4xx_hal_adc_ex.o ./HAL/src/stm32l4xx_hal_adc_ex.su ./HAL/src/stm32l4xx_hal_can.cyclo ./HAL/src/stm32l4xx_hal_can.d ./HAL/src/stm32l4xx_hal_can.o ./HAL/src/stm32l4xx_hal_can.su ./HAL/src/stm32l4xx_hal_comp.cyclo ./HAL/src/stm32l4xx_hal_comp.d ./HAL/src/stm32l4xx_hal_comp.o ./HAL/src/stm32l4xx_hal_comp.su ./HAL/src/stm32l4xx_hal_cortex.cyclo ./HAL/src/stm32l4xx_hal_cortex.d ./HAL/src/stm32l4xx_hal_cortex.o ./HAL/src/stm32l4xx_hal_cortex.su ./HAL/src/stm32l4xx_hal_crc.cyclo ./HAL/src/stm32l4xx_hal_crc.d ./HAL/src/stm32l4xx_hal_crc.o ./HAL/src/stm32l4xx_hal_crc.su ./HAL/src/stm32l4xx_hal_crc_ex.cyclo ./HAL/src/stm32l4xx_hal_crc_ex.d ./HAL/src/stm32l4xx_hal_crc_ex.o ./HAL/src/stm32l4xx_hal_crc_ex.su ./HAL/src/stm32l4xx_hal_cryp.cyclo ./HAL/src/stm32l4xx_hal_cryp.d ./HAL/src/stm32l4xx_hal_cryp.o ./HAL/src/stm32l4xx_hal_cryp.su ./HAL/src/stm32l4xx_hal_cryp_ex.cyclo ./HAL/src/stm32l4xx_hal_cryp_ex.d ./HAL/src/stm32l4xx_hal_cryp_ex.o ./HAL/src/stm32l4xx_hal_cryp_ex.su ./HAL/src/stm32l4xx_hal_dac.cyclo ./HAL/src/stm32l4xx_hal_dac.d ./HAL/src/stm32l4xx_hal_dac.o ./HAL/src/stm32l4xx_hal_dac.su ./HAL/src/stm32l4xx_hal_dac_ex.cyclo ./HAL/src/stm32l4xx_hal_dac_ex.d ./HAL/src/stm32l4xx_hal_dac_ex.o ./HAL/src/stm32l4xx_hal_dac_ex.su ./HAL/src/stm32l4xx_hal_dfsdm.cyclo ./HAL/src/stm32l4xx_hal_dfsdm.d ./HAL/src/stm32l4xx_hal_dfsdm.o ./HAL/src/stm32l4xx_hal_dfsdm.su ./HAL/src/stm32l4xx_hal_dma.cyclo ./HAL/src/stm32l4xx_hal_dma.d ./HAL/src/stm32l4xx_hal_dma.o ./HAL/src/stm32l4xx_hal_dma.su ./HAL/src/stm32l4xx_hal_firewall.cyclo ./HAL/src/stm32l4xx_hal_firewall.d ./HAL/src/stm32l4xx_hal_firewall.o ./HAL/src/stm32l4xx_hal_firewall.su ./HAL/src/stm32l4xx_hal_flash.cyclo ./HAL/src/stm32l4xx_hal_flash.d ./HAL/src/stm32l4xx_hal_flash.o ./HAL/src/stm32l4xx_hal_flash.su ./HAL/src/stm32l4xx_hal_flash_ex.cyclo ./HAL/src/stm32l4xx_hal_flash_ex.d ./HAL/src/stm32l4xx_hal_flash_ex.o ./HAL/src/stm32l4xx_hal_flash_ex.su ./HAL/src/stm32l4xx_hal_flash_ramfunc.cyclo ./HAL/src/stm32l4xx_hal_flash_ramfunc.d ./HAL/src/stm32l4xx_hal_flash_ramfunc.o ./HAL/src/stm32l4xx_hal_flash_ramfunc.su ./HAL/src/stm32l4xx_hal_gpio.cyclo ./HAL/src/stm32l4xx_hal_gpio.d ./HAL/src/stm32l4xx_hal_gpio.o ./HAL/src/stm32l4xx_hal_gpio.su ./HAL/src/stm32l4xx_hal_hcd.cyclo ./HAL/src/stm32l4xx_hal_hcd.d ./HAL/src/stm32l4xx_hal_hcd.o ./HAL/src/stm32l4xx_hal_hcd.su ./HAL/src/stm32l4xx_hal_i2c.cyclo ./HAL/src/stm32l4xx_hal_i2c.d ./HAL/src/stm32l4xx_hal_i2c.o ./HAL/src/stm32l4xx_hal_i2c.su ./HAL/src/stm32l4xx_hal_i2c_ex.cyclo ./HAL/src/stm32l4xx_hal_i2c_ex.d ./HAL/src/stm32l4xx_hal_i2c_ex.o ./HAL/src/stm32l4xx_hal_i2c_ex.su ./HAL/src/stm32l4xx_hal_irda.cyclo ./HAL/src/stm32l4xx_hal_irda.d ./HAL/src/stm32l4xx_hal_irda.o ./HAL/src/stm32l4xx_hal_irda.su ./HAL/src/stm32l4xx_hal_iwdg.cyclo ./HAL/src/stm32l4xx_hal_iwdg.d ./HAL/src/stm32l4xx_hal_iwdg.o ./HAL/src/stm32l4xx_hal_iwdg.su ./HAL/src/stm32l4xx_hal_lcd.cyclo ./HAL/src/stm32l4xx_hal_lcd.d ./HAL/src/stm32l4xx_hal_lcd.o ./HAL/src/stm32l4xx_hal_lcd.su ./HAL/src/stm32l4xx_hal_lptim.cyclo ./HAL/src/stm32l4xx_hal_lptim.d ./HAL/src/stm32l4xx_hal_lptim.o ./HAL/src/stm32l4xx_hal_lptim.su ./HAL/src/stm32l4xx_hal_msp_template.cyclo ./HAL/src/stm32l4xx_hal_msp_template.d ./HAL/src/stm32l4xx_hal_msp_template.o ./HAL/src/stm32l4xx_hal_msp_template.su ./HAL/src/stm32l4xx_hal_nand.cyclo ./HAL/src/stm32l4xx_hal_nand.d ./HAL/src/stm32l4xx_hal_nand.o ./HAL/src/stm32l4xx_hal_nand.su ./HAL/src/stm32l4xx_hal_nor.cyclo ./HAL/src/stm32l4xx_hal_nor.d ./HAL/src/stm32l4xx_hal_nor.o ./HAL/src/stm32l4xx_hal_nor.su ./HAL/src/stm32l4xx_hal_opamp.cyclo ./HAL/src/stm32l4xx_hal_opamp.d ./HAL/src/stm32l4xx_hal_opamp.o ./HAL/src/stm32l4xx_hal_opamp.su ./HAL/src/stm32l4xx_hal_opamp_ex.cyclo ./HAL/src/stm32l4xx_hal_opamp_ex.d ./HAL/src/stm32l4xx_hal_opamp_ex.o ./HAL/src/stm32l4xx_hal_opamp_ex.su ./HAL/src/stm32l4xx_hal_pcd.cyclo ./HAL/src/stm32l4xx_hal_pcd.d ./HAL/src/stm32l4xx_hal_pcd.o ./HAL/src/stm32l4xx_hal_pcd.su ./HAL/src/stm32l4xx_hal_pcd_ex.cyclo ./HAL/src/stm32l4xx_hal_pcd_ex.d ./HAL/src/stm32l4xx_hal_pcd_ex.o ./HAL/src/stm32l4xx_hal_pcd_ex.su ./HAL/src/stm32l4xx_hal_pwr.cyclo ./HAL/src/stm32l4xx_hal_pwr.d ./HAL/src/stm32l4xx_hal_pwr.o ./HAL/src/stm32l4xx_hal_pwr.su ./HAL/src/stm32l4xx_hal_pwr_ex.cyclo ./HAL/src/stm32l4xx_hal_pwr_ex.d ./HAL/src/stm32l4xx_hal_pwr_ex.o ./HAL/src/stm32l4xx_hal_pwr_ex.su ./HAL/src/stm32l4xx_hal_qspi.cyclo ./HAL/src/stm32l4xx_hal_qspi.d ./HAL/src/stm32l4xx_hal_qspi.o ./HAL/src/stm32l4xx_hal_qspi.su ./HAL/src/stm32l4xx_hal_rcc.cyclo ./HAL/src/stm32l4xx_hal_rcc.d ./HAL/src/stm32l4xx_hal_rcc.o ./HAL/src/stm32l4xx_hal_rcc.su ./HAL/src/stm32l4xx_hal_rcc_ex.cyclo ./HAL/src/stm32l4xx_hal_rcc_ex.d ./HAL/src/stm32l4xx_hal_rcc_ex.o ./HAL/src/stm32l4xx_hal_rcc_ex.su ./HAL/src/stm32l4xx_hal_rng.cyclo ./HAL/src/stm32l4xx_hal_rng.d ./HAL/src/stm32l4xx_hal_rng.o ./HAL/src/stm32l4xx_hal_rng.su ./HAL/src/stm32l4xx_hal_rtc.cyclo ./HAL/src/stm32l4xx_hal_rtc.d ./HAL/src/stm32l4xx_hal_rtc.o ./HAL/src/stm32l4xx_hal_rtc.su ./HAL/src/stm32l4xx_hal_rtc_ex.cyclo ./HAL/src/stm32l4xx_hal_rtc_ex.d ./HAL/src/stm32l4xx_hal_rtc_ex.o ./HAL/src/stm32l4xx_hal_rtc_ex.su ./HAL/src/stm32l4xx_hal_sai.cyclo ./HAL/src/stm32l4xx_hal_sai.d ./HAL/src/stm32l4xx_hal_sai.o ./HAL/src/stm32l4xx_hal_sai.su ./HAL/src/stm32l4xx_hal_sd.cyclo ./HAL/src/stm32l4xx_hal_sd.d ./HAL/src/stm32l4xx_hal_sd.o ./HAL/src/stm32l4xx_hal_sd.su ./HAL/src/stm32l4xx_hal_smartcard.cyclo ./HAL/src/stm32l4xx_hal_smartcard.d ./HAL/src/stm32l4xx_hal_smartcard.o ./HAL/src/stm32l4xx_hal_smartcard.su ./HAL/src/stm32l4xx_hal_smartcard_ex.cyclo ./HAL/src/stm32l4xx_hal_smartcard_ex.d ./HAL/src/stm32l4xx_hal_smartcard_ex.o ./HAL/src/stm32l4xx_hal_smartcard_ex.su
+	-$(RM) ./HAL/src/stm32l4xx_hal_smbus.cyclo ./HAL/src/stm32l4xx_hal_smbus.d ./HAL/src/stm32l4xx_hal_smbus.o ./HAL/src/stm32l4xx_hal_smbus.su ./HAL/src/stm32l4xx_hal_spi.cyclo ./HAL/src/stm32l4xx_hal_spi.d ./HAL/src/stm32l4xx_hal_spi.o ./HAL/src/stm32l4xx_hal_spi.su ./HAL/src/stm32l4xx_hal_spi_ex.cyclo ./HAL/src/stm32l4xx_hal_spi_ex.d ./HAL/src/stm32l4xx_hal_spi_ex.o ./HAL/src/stm32l4xx_hal_spi_ex.su ./HAL/src/stm32l4xx_hal_sram.cyclo ./HAL/src/stm32l4xx_hal_sram.d ./HAL/src/stm32l4xx_hal_sram.o ./HAL/src/stm32l4xx_hal_sram.su ./HAL/src/stm32l4xx_hal_swpmi.cyclo ./HAL/src/stm32l4xx_hal_swpmi.d ./HAL/src/stm32l4xx_hal_swpmi.o ./HAL/src/stm32l4xx_hal_swpmi.su ./HAL/src/stm32l4xx_hal_tim.cyclo ./HAL/src/stm32l4xx_hal_tim.d ./HAL/src/stm32l4xx_hal_tim.o ./HAL/src/stm32l4xx_hal_tim.su ./HAL/src/stm32l4xx_hal_tim_ex.cyclo ./HAL/src/stm32l4xx_hal_tim_ex.d ./HAL/src/stm32l4xx_hal_tim_ex.o ./HAL/src/stm32l4xx_hal_tim_ex.su ./HAL/src/stm32l4xx_hal_timebase_tim_template.cyclo ./HAL/src/stm32l4xx_hal_timebase_tim_template.d ./HAL/src/stm32l4xx_hal_timebase_tim_template.o ./HAL/src/stm32l4xx_hal_timebase_tim_template.su ./HAL/src/stm32l4xx_hal_tsc.cyclo ./HAL/src/stm32l4xx_hal_tsc.d ./HAL/src/stm32l4xx_hal_tsc.o ./HAL/src/stm32l4xx_hal_tsc.su ./HAL/src/stm32l4xx_hal_uart.cyclo ./HAL/src/stm32l4xx_hal_uart.d ./HAL/src/stm32l4xx_hal_uart.o ./HAL/src/stm32l4xx_hal_uart.su ./HAL/src/stm32l4xx_hal_uart_ex.cyclo ./HAL/src/stm32l4xx_hal_uart_ex.d ./HAL/src/stm32l4xx_hal_uart_ex.o ./HAL/src/stm32l4xx_hal_uart_ex.su ./HAL/src/stm32l4xx_hal_usart.cyclo ./HAL/src/stm32l4xx_hal_usart.d ./HAL/src/stm32l4xx_hal_usart.o ./HAL/src/stm32l4xx_hal_usart.su ./HAL/src/stm32l4xx_hal_wwdg.cyclo ./HAL/src/stm32l4xx_hal_wwdg.d ./HAL/src/stm32l4xx_hal_wwdg.o ./HAL/src/stm32l4xx_hal_wwdg.su ./HAL/src/stm32l4xx_ll_adc.cyclo ./HAL/src/stm32l4xx_ll_adc.d ./HAL/src/stm32l4xx_ll_adc.o ./HAL/src/stm32l4xx_ll_adc.su ./HAL/src/stm32l4xx_ll_comp.cyclo ./HAL/src/stm32l4xx_ll_comp.d ./HAL/src/stm32l4xx_ll_comp.o ./HAL/src/stm32l4xx_ll_comp.su ./HAL/src/stm32l4xx_ll_crc.cyclo ./HAL/src/stm32l4xx_ll_crc.d ./HAL/src/stm32l4xx_ll_crc.o ./HAL/src/stm32l4xx_ll_crc.su ./HAL/src/stm32l4xx_ll_crs.cyclo ./HAL/src/stm32l4xx_ll_crs.d ./HAL/src/stm32l4xx_ll_crs.o ./HAL/src/stm32l4xx_ll_crs.su ./HAL/src/stm32l4xx_ll_dac.cyclo ./HAL/src/stm32l4xx_ll_dac.d ./HAL/src/stm32l4xx_ll_dac.o ./HAL/src/stm32l4xx_ll_dac.su ./HAL/src/stm32l4xx_ll_dma.cyclo ./HAL/src/stm32l4xx_ll_dma.d ./HAL/src/stm32l4xx_ll_dma.o ./HAL/src/stm32l4xx_ll_dma.su ./HAL/src/stm32l4xx_ll_exti.cyclo ./HAL/src/stm32l4xx_ll_exti.d ./HAL/src/stm32l4xx_ll_exti.o ./HAL/src/stm32l4xx_ll_exti.su ./HAL/src/stm32l4xx_ll_fmc.cyclo ./HAL/src/stm32l4xx_ll_fmc.d ./HAL/src/stm32l4xx_ll_fmc.o ./HAL/src/stm32l4xx_ll_fmc.su ./HAL/src/stm32l4xx_ll_gpio.cyclo ./HAL/src/stm32l4xx_ll_gpio.d ./HAL/src/stm32l4xx_ll_gpio.o ./HAL/src/stm32l4xx_ll_gpio.su ./HAL/src/stm32l4xx_ll_i2c.cyclo ./HAL/src/stm32l4xx_ll_i2c.d ./HAL/src/stm32l4xx_ll_i2c.o ./HAL/src/stm32l4xx_ll_i2c.su ./HAL/src/stm32l4xx_ll_lptim.cyclo ./HAL/src/stm32l4xx_ll_lptim.d ./HAL/src/stm32l4xx_ll_lptim.o ./HAL/src/stm32l4xx_ll_lptim.su ./HAL/src/stm32l4xx_ll_lpuart.cyclo ./HAL/src/stm32l4xx_ll_lpuart.d ./HAL/src/stm32l4xx_ll_lpuart.o ./HAL/src/stm32l4xx_ll_lpuart.su ./HAL/src/stm32l4xx_ll_opamp.cyclo ./HAL/src/stm32l4xx_ll_opamp.d ./HAL/src/stm32l4xx_ll_opamp.o ./HAL/src/stm32l4xx_ll_opamp.su ./HAL/src/stm32l4xx_ll_pwr.cyclo ./HAL/src/stm32l4xx_ll_pwr.d ./HAL/src/stm32l4xx_ll_pwr.o ./HAL/src/stm32l4xx_ll_pwr.su ./HAL/src/stm32l4xx_ll_rcc.cyclo ./HAL/src/stm32l4xx_ll_rcc.d ./HAL/src/stm32l4xx_ll_rcc.o ./HAL/src/stm32l4xx_ll_rcc.su ./HAL/src/stm32l4xx_ll_rng.cyclo ./HAL/src/stm32l4xx_ll_rng.d ./HAL/src/stm32l4xx_ll_rng.o ./HAL/src/stm32l4xx_ll_rng.su ./HAL/src/stm32l4xx_ll_rtc.cyclo ./HAL/src/stm32l4xx_ll_rtc.d ./HAL/src/stm32l4xx_ll_rtc.o ./HAL/src/stm32l4xx_ll_rtc.su ./HAL/src/stm32l4xx_ll_sdmmc.cyclo ./HAL/src/stm32l4xx_ll_sdmmc.d ./HAL/src/stm32l4xx_ll_sdmmc.o ./HAL/src/stm32l4xx_ll_sdmmc.su ./HAL/src/stm32l4xx_ll_spi.cyclo ./HAL/src/stm32l4xx_ll_spi.d ./HAL/src/stm32l4xx_ll_spi.o ./HAL/src/stm32l4xx_ll_spi.su ./HAL/src/stm32l4xx_ll_swpmi.cyclo ./HAL/src/stm32l4xx_ll_swpmi.d ./HAL/src/stm32l4xx_ll_swpmi.o ./HAL/src/stm32l4xx_ll_swpmi.su ./HAL/src/stm32l4xx_ll_tim.cyclo ./HAL/src/stm32l4xx_ll_tim.d ./HAL/src/stm32l4xx_ll_tim.o ./HAL/src/stm32l4xx_ll_tim.su ./HAL/src/stm32l4xx_ll_usart.cyclo ./HAL/src/stm32l4xx_ll_usart.d ./HAL/src/stm32l4xx_ll_usart.o ./HAL/src/stm32l4xx_ll_usart.su ./HAL/src/stm32l4xx_ll_usb.cyclo ./HAL/src/stm32l4xx_ll_usb.d ./HAL/src/stm32l4xx_ll_usb.o ./HAL/src/stm32l4xx_ll_usb.su ./HAL/src/stm32l4xx_ll_utils.cyclo ./HAL/src/stm32l4xx_ll_utils.d ./HAL/src/stm32l4xx_ll_utils.o ./HAL/src/stm32l4xx_ll_utils.su
+
+.PHONY: clean-HAL-2f-src
+
