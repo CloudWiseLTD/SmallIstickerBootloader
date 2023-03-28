@@ -127,7 +127,6 @@ int main(void)
 {
  	uint32_t inx = 0; //,systemClock = 0;
 	uint8_t tmp8 = 0;
-	// uint16_t tmp16 = 0;
 	uint32_t param_address = 0;
 
 
