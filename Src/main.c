@@ -112,15 +112,22 @@ static HAL_StatusTypeDef hal_status;
  * byte 1: boot loader minor version
  * byte 2: Hardware type
  */
+
+#ifndef  REMOVE_BOOT_CONSTANTS
+
 static const unsigned char __attribute__((section (".boot_constants")))
 	boot_constants[16] = { 4, 46, HARDWARE_TYPE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
+#endif
+
 int measure_count = 0;
 
+/*
 void PrintVersion(void)
 {
 	SerialPutString("\n\rCar Sticker Boot Loader Version 4.46 (no reg)");
 }
+*/
 
 
 int main(void)
@@ -146,6 +153,9 @@ int main(void)
 		WD_Refresh();
 	#endif
 
+	HAL_Delay(3000); // ??????????
+
+
 	Enable_GPIO_Clocks();
 
 	GPIO_Init();
@@ -160,19 +170,25 @@ int main(void)
 	TMR2_Sleep(100);
 
 	#ifdef UART_DEBUG
+	#ifndef REMOVE_UART
 	USART1_Init();
+	#endif
 	#endif
 
 
 	hal_status = RTC_Init();
 
-
+#ifndef  REMOVE_ADC
 	ADC1_Init();
+#endif
+
 	Led_GPIO_Init();
 	GPS_GPIO_Close();
 
 	// the test is moved to the application
+#ifndef  REMOVE_ADC
 	CheckVoltages();
+#endif
 
 	SystemClock_Config();
 
@@ -201,6 +217,7 @@ int main(void)
 
 	BlinkSequence();
 
+	/*
 	// SerialPutString("\n\rCar Sticker Boot Loader Version 4.44 (no reg)");
 	PrintVersion();
 
@@ -217,20 +234,21 @@ int main(void)
 		#endif
 	#endif
 #endif
+	*/
 
 	// check voltage
 
-	SerialPutString("Reading Parameters...");
+	// SerialPutString("Reading Parameters...");
 
 	if (DevParms_Read_Flash(&I_DevicePrm, (u32)param_address) == SUCCESS)
 	{
-		SerialPutString(" - Success\r\n");
+		// SerialPutString(" - Success\r\n");
 
 		BlinkSequence();
 
 		if (I_DevicePrm.dpVersion == FLASH_ERASE_VALUE)
 		{
-			SerialPutString("No Application Found\r\n");
+			// SerialPutString("No Application Found\r\n");
 
 			while(1)
 			{
@@ -272,8 +290,10 @@ int main(void)
 		}
 		else
 		{
+			/*
 			sprintf( general_str, "application version: %d.%d.%d\r\n" , (I_DevicePrm.dpVersion / 256), (I_DevicePrm.dpVersion % 256),  I_DevicePrm.dpBuild);
 			SerialPutString(general_str);
+			*/
 			// SerialPutString("Application is in Inner Flash\n\r");
 			
 			// debugging only: force new version
@@ -281,7 +301,7 @@ int main(void)
 
 			if (I_DevicePrm.dpVerRdLn == 0)
 			{
-				SerialPutString("No new firmware found. run the current firmware\r\n");
+				// SerialPutString("No new firmware found. run the current firmware\r\n");
 
 				// TMR2_Sleep(3000);
 				Going_To_APP();
@@ -327,81 +347,87 @@ int main(void)
 				// indicate trying to burn new firmware by blinking led
 				success_code = 1;
 
+				/*
 				sprintf( general_str, "new firmware: %d.%d.%d - size: %d\r\n" , (I_DevicePrm.dpVersionR / 256), (I_DevicePrm.dpVersionR % 256),  I_DevicePrm.dpBuildR, I_DevicePrm.dpVerRdLn);
 				SerialPutString(general_str);
+				*/
 
 				if ((I_DevicePrm.dpVerRdLn > 0) && (I_DevicePrm.dpVerRdLn  < (INNFLS_MAX_APP_SIZE + 1)))
 				{
+					/*
 					SerialPutString("Found New firmware Update\r\n");
-
 					SerialPutString("Calculating extern CRC...");
+					*/
 					
 					if (Flash_Calc_Version_CRC16(I_DevicePrm.dpVerRdLn,  EXTERNAL_FLASH_APP_START_ADDRESS , glbDatBuf ,&glbCrc16) == SUCCESS)
 					{
-						SerialPutString(" - Success\r\n");
+						// SerialPutString(" - Success\r\n");
 
+						/*
 						// SerialPutString("Calc CRC16 of Ext Flash New Application Success\n\r");
 						sprintf( general_str, "Expected CRC=%d, Calculated CRC=%d\r\n" , I_DevicePrm.dpVerRcrc, glbCrc16);
 						SerialPutString(general_str);
+						*/
 						
 						// if (1) // dubug only: force upgrade new firmware.
 						if(I_DevicePrm.dpVerRcrc == glbCrc16)
 						{
+							/*
 							SerialPutString("External Flash CRC match\r\n");
 
 							// SerialPutString("CRC16 of Ext Flash Compare Success\n\r");
 							SerialPutString("Erasing current firmware...");
+							*/
 							
 							__HAL_FLASH_CLEAR_FLAG(0xFFFF);
 
 							if (Inner_Flash_Erase() == SUCCESS)
 							{
-								SerialPutString(" - Success\r\n");
-
-								//SerialPutString("Erase Inner Flash Sectors\n\r");
+								// SerialPutString(" - Success\r\n");
 								
-								SerialPutString("Copying new firmware...\r\n");
+								// SerialPutString("Copying new firmware...\r\n");
 
 								if (Transfer_Version(I_DevicePrm.dpVerRdLn, EXTERNAL_FLASH_APP_START_ADDRESS, glbDatBuf, INNFLS_STR_APP_ADD) == SUCCESS)
 								{
-									SerialPutString(" - Success\r\n");
-									// SerialPutString("Transfer Application from Ext Flash to Inner Flash Success\n\r");
+									// SerialPutString(" - Success\r\n");
 									
 									glbCrc16 = 0;
 
-									SerialPutString("Calculating inner flash firmware CRC...\r\n");
+									// SerialPutString("Calculating inner flash firmware CRC...\r\n");
 									
 									if (Inner_Flash_ClcCrc16(I_DevicePrm.dpVerRdLn, INNFLS_STR_APP_ADD , &glbCrc16, glbDatBuf, DATA_BUFFER_SIZE) == SUCCESS)
 									{
+										/*
 										sprintf( general_str, "Expected CRC=%d, Calculated CRC=%d\r\n" , I_DevicePrm.dpVerRcrc, glbCrc16);
 										SerialPutString(general_str);
+										*/
 										
 										// if (1) // debug only: force copy firmware
 										if (I_DevicePrm.dpVerRcrc == glbCrc16)
 										{
+											/*
 											SerialPutString("Inner Flash CRC match\r\n");
 											SerialPutString("The transfer succeeded\r\n");
+											*/
 											
 											I_DevicePrm.dpVerRcrc = 0;
 											I_DevicePrm.dpVerRdLn = 0;
 											I_DevicePrm.dpVersion = I_DevicePrm.dpVersionR;
 											I_DevicePrm.dpBuild = I_DevicePrm.dpBuildR;
 
-											SerialPutString("Burning the new version number...\r\n");
+											// SerialPutString("Burning the new version number...\r\n");
 											
 											if(DevParms_Burn_Flash(&I_DevicePrm) == SUCCESS)
 											{
-												SerialPutString(" - Success\r\n");
-												//SerialPutString("Program Parameters into Ext Flash Success\n\r");
-												//SerialPutString("Remote Setup New Application Success\n\r");
+												// SerialPutString(" - Success\r\n");
 
 												success_code = 2;
-												SerialPutString("Jumping To Application\r\n");
+												// SerialPutString("Jumping To Application\r\n");
 												Going_To_APP();
 											}
 											else
 											{	
-												SerialPutString(" - Failed\r\n");
+												// SerialPutString(" - Failed\r\n");
 												// SerialPutString("Program Parameters into Ext Flash Failed\n\r");
 												
 												while(ledFinished == 0)
@@ -414,7 +440,7 @@ int main(void)
 										}
 										else
 										{
-											SerialPutString("Inner Flash CRC doesn't match\r\n");
+											// SerialPutString("Inner Flash CRC doesn't match\r\n");
 											
 											while(ledFinished == 0)
 											{
@@ -426,7 +452,7 @@ int main(void)
 									}
 									else
 									{
-										SerialPutString("Calculating inner CRC Failed\r\n");
+										// SerialPutString("Calculating inner CRC Failed\r\n");
 										
 										while(ledFinished == 0)
 										{
@@ -438,7 +464,7 @@ int main(void)
 								}
 								else
 								{
-									SerialPutString(" - Failed\r\n");
+									// SerialPutString(" - Failed\r\n");
 									//SerialPutString("Transfer Application from Ext Flash to Inner Flash Success\n\r");
 									
 									while (ledFinished == 0)
@@ -451,7 +477,7 @@ int main(void)
 							}
 							else
 							{
-								SerialPutString(" - Failed\r\n");
+								// SerialPutString(" - Failed\r\n");
 								// SerialPutString("Erase Inner Flash Sectors 1-5 Failed\n\r");
 								
 								while(ledFinished == 0)
@@ -464,35 +490,38 @@ int main(void)
 						}
 						else
 						{
-							SerialPutString("External Flash CRC doesn't match\r\n");
-							// SerialPutString("CRC16 of Ext Flash Compare Failed (Mismatch)\n\r");
+							// SerialPutString("External Flash CRC doesn't match\r\n");
 						}
 					}
 					else
 					{
-						SerialPutString(" - Failed\r\n");	// reading the external flash failed
+						// SerialPutString(" - Failed\r\n");	// reading the external flash failed
 					}
 				}
 				else
 				{
+					/*
 					SerialPutString(" - Failed\r\n");
 					SerialPutString("New firmware is over-sized.\r\n");
+					*/
 				}
 			}
 
-			SerialPutString("Jumping To Application\r\n");
+			// SerialPutString("Jumping To Application\r\n");
 			Going_To_APP();
 		}
 		
 	}
 	else
 	{
-		SerialPutString(" - Failed\n\r");
-		// SerialPutString("Read Ext Flash Parameters Failed\n\r");
+		// SerialPutString(" - Failed\n\r");
 
-		SerialPutString("Setting manufacture defaults...\r\n");
+		// SerialPutString("Setting manufacture defaults...\r\n");
+
+#ifndef REMOVE_PARAMS
 		DevParms_Set_Default(&I_DevicePrm);
 		DevParms_Burn_Flash(&I_DevicePrm);
+#endif
 		
 		while (ledFinished == 0)
 		{
@@ -667,6 +696,7 @@ u8 TestVoltage(unsigned char enable_print)
 		HAL_GPIO_WritePin(IO_PORT_CHARGE_EN, IO_PIN_CHARGE_EN, GPIO_PIN_RESET);
 
 
+/*
 #ifdef UART_DEBUG
 	if (enable_print)
 	{
@@ -679,6 +709,7 @@ u8 TestVoltage(unsigned char enable_print)
 		PrintVersion();
 	}
 #endif
+*/
 
 
 	return ret;
@@ -854,7 +885,9 @@ void CheckVoltages(void)
 			// TMR6_Init();
 
 			#ifdef UART_DEBUG
+			#ifndef REMOVE_UART
 			USART1_Init();
+			#endif
 			#endif
 
 

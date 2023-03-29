@@ -14,6 +14,8 @@
 #include "RST.h"
 #include "UART.h"
 
+#ifndef REMOVE_UART
+
 UART_HandleTypeDef I_Uart1Hndl = {'\0'};
  
 void USART1_Init(void)
@@ -75,3 +77,6 @@ void USART1_Init(void)
 	 HAL_UART_DeInit(&I_Uart1Hndl);
  }
  
+
+#endif
+

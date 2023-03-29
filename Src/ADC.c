@@ -14,7 +14,10 @@
 //ADC structs//
 ADC_HandleTypeDef			AdcHandle = {'\0'};
 ADC_ChannelConfTypeDef    	sConfig = {'\0'};
+
+#ifndef REMOVE_DMA
 DMA_HandleTypeDef		 	I_dma1Cnl1 = {'\0'};
+#endif
 
 sADC_Msrs measurements;
 
@@ -32,6 +35,7 @@ static char adc_Sample_completed = 0;
 
 sADC_Msrs* ActivateScan(void)
 {
+#ifndef REMOVE_DMA
 	unsigned count = 10000;
 
 	sADC_Msrs* ptr = NULL;
@@ -55,6 +59,7 @@ sADC_Msrs* ActivateScan(void)
 	}
 
 	return ptr;
+#endif
 }
 
 
@@ -84,6 +89,8 @@ void ADC1_Init(void)
 	GPIO_Config_Params(&GPIO_InitStructure, GPIO_MODE_INPUT, IO_PIN_USB_BUS , GPIO_NOPULL, GPIO_SPEED_FREQ_LOW);
 	HAL_GPIO_Init(IO_PORT_USB_BUS, &GPIO_InitStructure);
 
+#ifndef REMOVE_DMA
+
 	I_dma1Cnl1.Instance = DMA1_Channel1;
 	
 	if(HAL_DMA_DeInit(&I_dma1Cnl1) != HAL_OK)
@@ -104,6 +111,8 @@ void ADC1_Init(void)
 	{
 		Error_Handler();
 	}
+
+#endif
 			
 	AdcHandle.Instance	= ADC1;
 	
@@ -194,8 +203,10 @@ void ADC1_Init(void)
 	}
 	
 	//Associate the DMA handle//
+#ifndef REMOVE_DMA
 	AdcHandle.DMA_Handle = &I_dma1Cnl1;
 	I_dma1Cnl1.Parent = &AdcHandle;
+#endif
 	
 	/* NVIC configuration for DMA Input data interrupt */
 	HAL_NVIC_SetPriority(DMA1_Channel1_IRQn, 15, 0);
@@ -205,7 +216,9 @@ void ADC1_Init(void)
 
 void DMA1_Channel1_IRQHandler(void)
 {	
+#ifndef REMOVE_DMA
 	HAL_DMA_IRQHandler(&I_dma1Cnl1);
+#endif
 
 	// measurement received
 }
@@ -237,5 +250,7 @@ void ADC1_DeInit(void)
 
 void DMA1_CH1_DeInit(void)
 {
-	HAL_DMA_DeInit(&I_dma1Cnl1); 
+#ifndef REMOVE_DMA
+	HAL_DMA_DeInit(&I_dma1Cnl1);
+#endif
 }

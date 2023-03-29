@@ -16,6 +16,9 @@
 #include "FlashInnApp.h"
 #include "Common.h"
 #include "Download.h"
+#include "IO_Mapping.h"
+
+#ifndef REMOVE_DOWNLOAD
 
  extern uint8_t file_name[FILE_NAME_LENGTH];
  
@@ -113,3 +116,4 @@
 	 return Size;
   }
 
+#endif

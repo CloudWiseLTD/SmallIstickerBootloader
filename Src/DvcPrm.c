@@ -16,10 +16,15 @@
 #include "DvcPrm.h"
 #include "IO_Mapping.h"
 
-sDevice_Params  I_DevicePrm;
+	sDevice_Params  I_DevicePrm;
+
 
 ErrorStatus DevParms_Program_Flash(u8 * flsWrtBf, u16 flsWrtBfLn, u32 flsAddr)
 {
+#ifdef REMOVE_PARAMS
+	return ERROR;
+#endif
+
     static u8 wrPrgBff[320];
 	static u8 rdPrgBff[320];
 	
@@ -119,6 +124,10 @@ ErrorStatus DevParms_Program_Flash(u8 * flsWrtBf, u16 flsWrtBfLn, u32 flsAddr)
  
 ErrorStatus DevParms_Read_Flash(sDevice_Params *P_HbDvcPrms, u32 dpFlsAddr)
 {
+#ifdef REMOVE_PARAMS
+	return ERROR;
+#endif
+
   	u32	crcCalcFls = 0;
 
   	u8 wrBuff[4] = {0};
@@ -308,10 +317,16 @@ ErrorStatus DevParms_Burn_Flash(sDevice_Params* P_DevicePrms)
  	char* p1;
  	u32 size;
 
+#ifndef REMOVE_PARAMS
+
+
  	p1 = (char*)( &(I_DevicePrm) );
  	p2 = (char*)( &(I_DevicePrm.dpCrc) );
 
  	size = (p2-p1);
 
  	return size;
+
+#endif
+
  }

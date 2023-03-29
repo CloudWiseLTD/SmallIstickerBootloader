@@ -5,6 +5,8 @@
  *      Author: Michael Nesher
  */
 
+#include "IO_Mapping.h"
+
 #ifndef TMRS_H_
 #define TMRS_H_
 
@@ -24,7 +26,9 @@ void TMR16_Set(u16 milli_seconds);
 void TMR16_Sleep (u16 milli_seconds);
 u8 TMR16_Over(void);
 
+#ifndef REMOVE_TIMERS
 void HAL_TIM_CallBack(TIM_HandleTypeDef *htim);
+#endif
 
 void TMR6_DeInit(void);
 void TMR2_DeInit(void);

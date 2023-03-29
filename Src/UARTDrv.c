@@ -13,6 +13,9 @@
 #include "RST.h"
 #include "UART.h"
 #include "UARTDrv.h"
+#include "IO_Mapping.h"
+
+#ifndef REMOVE_UART
 
 extern UART_HandleTypeDef I_Uart1Hndl;
 
@@ -69,4 +72,6 @@ extern UART_HandleTypeDef I_Uart1Hndl;
 	 	 
 	 data = (u8)((I_Uart1Hndl.Instance->RDR) & 0xFF);
  }
+
+#endif
 

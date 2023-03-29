@@ -13,10 +13,12 @@
 #include "RST.h"
 #include "TMRS.h"
 
+#ifndef REMOVE_TIMERS
 TIM_HandleTypeDef    Tim2Handle = {'\0'};
 TIM_HandleTypeDef    Tim7Handle = {'\0'};
 TIM_HandleTypeDef	 Tim6Handle = {'\0'};
 TIM_HandleTypeDef	 Tim16Handle = {'\0'};
+#endif
 
 u8 cntLed = 0;
 u8 cntISR = 0;
@@ -52,6 +54,7 @@ void TMR7_Sleep (u16 micro_seconds)
  //TMR 7 counter of 1 micro second//
  void TMR7_Init(void)
 {
+#ifndef REMOVE_TIMERS
 	RCC_ClkInitTypeDef	clkconfig = {'\0'};
 	u32 timclock = 0U, APB1Prescaler = 0U, prescalerValue = 0U,	pFLatency = 0U;
 
@@ -82,11 +85,14 @@ void TMR7_Sleep (u16 micro_seconds)
 	{
 		Error_Handler();
 	}
+#endif
 }
  
  //TMR 2 counter of 1 milli second//
 ErrorStatus TMR2_Init(void)
 {
+#ifndef REMOVE_TIMERS
+
 	RCC_ClkInitTypeDef	clkconfig = {'\0'};
 	u32 timclock = 0U, APB1Prescaler = 0U, prescalerValue = 0U, pFLatency = 0U;
 
@@ -117,6 +123,7 @@ ErrorStatus TMR2_Init(void)
 	{
 		Error_Handler();
 	}
+#endif
 }
 
 
@@ -135,6 +142,10 @@ void TMR2_Set(u16 milli_seconds)
 
 void TMR2_Sleep (u16 milli_seconds)
 {
+#ifdef REMOVE_TIMERS
+	return;
+#endif
+
 	u32 inx = 0;
 
 	TMR2_Set(milli_seconds);
@@ -148,6 +159,7 @@ void TMR2_Sleep (u16 milli_seconds)
 //TMR 6 interrupt every 100 milli//
 ErrorStatus TMR6_Init(void)
 {
+#ifndef REMOVE_TIMERS
 	RCC_ClkInitTypeDef	 clkconfig = {'\0'};
 	u32	timclock = 0U, APB1Prescaler = 0U, prescalerValue = 0U,  pFLatency = 0U;
 
@@ -190,13 +202,17 @@ ErrorStatus TMR6_Init(void)
 	}
 
 	return SUCCESS;
+#endif
 }
  
 void TIM6_DAC_IRQHandler(void)
 {
+#ifndef REMOVE_TIMERS
 	HAL_TIM_IRQHandler(&Tim6Handle);
+#endif
 }
 
+#ifndef REMOVE_TIMERS
  void HAL_TIM_CallBack(TIM_HandleTypeDef *htim)
 {
 	 if(htim->Instance == TIM6)
@@ -204,6 +220,7 @@ void TIM6_DAC_IRQHandler(void)
 		TMR6_Process_Handler();
 	}
 }
+#endif
 
 void TMR6_Process_Handler(void)
 {
@@ -252,6 +269,7 @@ void TMR6_Process_Handler(void)
 //TMR 16 counter of 1 milli second//
 ErrorStatus TMR16_Init(void)
 {
+#ifndef REMOVE_TIMERS
 	RCC_ClkInitTypeDef	clkconfig = {'\0'};
 	u32 timclock = 0U, APB2Prescaler = 0U, prescalerValue = 0U, pFLatency = 0U;
 
@@ -282,6 +300,7 @@ ErrorStatus TMR16_Init(void)
 	{
 		Error_Handler();
 	}
+#endif
 }
 
 void TMR16_Set(u16 milli_seconds)
@@ -325,18 +344,26 @@ u8 TMR16_Over(void)
 
 void TMR6_DeInit(void)
 {
+#ifndef REMOVE_TIMERS
 	HAL_TIM_Base_DeInit(&Tim6Handle);
+#endif
 }
 void TMR2_DeInit(void)
 {
+#ifndef REMOVE_TIMERS
 	HAL_TIM_Base_DeInit(&Tim2Handle);
+#endif
 }
 void TMR16_DeInit(void)
 {
+#ifndef REMOVE_TIMERS
 	HAL_TIM_Base_DeInit(&Tim16Handle);
+#endif
 }
 void TMR7_DeInit(void)
 {
+#ifndef REMOVE_TIMERS
 	HAL_TIM_Base_DeInit(&Tim7Handle);
+#endif
 }
 

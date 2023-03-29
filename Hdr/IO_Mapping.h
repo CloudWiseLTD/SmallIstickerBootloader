@@ -1,7 +1,7 @@
 /*
  * IO_Mapping.h
  *
- *  Created on: 11 áñôè× 2017
+ *  Created on: 11 ï¿½ï¿½ï¿½ï¿½ï¿½ 2017
  *      Author: alon
  */
 
@@ -40,6 +40,15 @@
 
 
 #define UART_DEBUG
+
+#define REMOVE_UART
+#define  REMOVE_BOOT_CONSTANTS
+#define  REMOVE_YMODEM
+#define  REMOVE_DOWNLOAD
+#define  REMOVE_DMA
+#define  REMOVE_ADC
+#define  REMOVE_TIMERS
+#define  REMOVE_PARAMS
 
 
 ///////////////

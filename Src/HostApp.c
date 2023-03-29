@@ -13,6 +13,7 @@
 #include "TMRS.h"
 #include "Common.h"
 #include "HostApp.h"
+#include "IO_Mapping.h"
 
 u8 GetKey(void)
 {
@@ -53,6 +54,7 @@ u8 Get_Key_TimOut(void)
 
 void Serial_PutString(u8* s)
 {
+	#ifndef REMOVE_UART
 	while (*s != '\0')
 	{
 		SerialPutChar(*s);
@@ -61,6 +63,7 @@ void Serial_PutString(u8* s)
 	}
 
 	WaitForEndTx();
+	#endif
 }
 
 

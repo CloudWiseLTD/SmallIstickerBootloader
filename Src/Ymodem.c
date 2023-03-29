@@ -15,6 +15,9 @@
 #include "UARTDrv.h"
 #include "Common.h"
 #include "Ymodem.h"
+#include "IO_Mapping.h"
+
+#ifdef  REMOVE_YMODEM
 
 uint8_t file_name[FILE_NAME_LENGTH];
 uint8_t fileNam[50];
@@ -398,3 +401,5 @@ int32_t Ymodem_Receive (uint8_t *buf)
 	return (int32_t)size;
 
 }
+
+#endif
