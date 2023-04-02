@@ -47,8 +47,8 @@
 #define  REMOVE_DOWNLOAD
 #define  REMOVE_DMA
 #define  REMOVE_ADC
-#define  REMOVE_TIMERS
-#define  REMOVE_PARAMS
+// #define  REMOVE_TIMERS
+// #define  REMOVE_PARAMS
 
 
 ///////////////

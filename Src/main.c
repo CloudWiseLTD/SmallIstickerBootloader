@@ -153,14 +153,14 @@ int main(void)
 		WD_Refresh();
 	#endif
 
-	HAL_Delay(3000); // ??????????
+	// HAL_Delay(3000); // ??????????
 
 
 	Enable_GPIO_Clocks();
 
 	GPIO_Init();
 
-	TMR2_Init();
+	// TMR2_Init();
 
 	//what the purpose of this line ?
 	//TMR2_Sleep(100);
@@ -199,8 +199,8 @@ int main(void)
 
 	SPI2_Init();
 	TMR7_Init();
-	TMR6_Init();
-	TMR16_Init();
+	// TMR6_Init();
+	// TMR16_Init();
 
 	#ifndef UART_DEBUG
 	USART1_Init();
@@ -215,7 +215,7 @@ int main(void)
 	
 	ErrorStatus error = Flash_Init();
 
-	BlinkSequence();
+	// ????????????? BlinkSequence();
 
 	/*
 	// SerialPutString("\n\rCar Sticker Boot Loader Version 4.44 (no reg)");
@@ -244,7 +244,7 @@ int main(void)
 	{
 		// SerialPutString(" - Success\r\n");
 
-		BlinkSequence();
+		// ??????????????? BlinkSequence();
 
 		if (I_DevicePrm.dpVersion == FLASH_ERASE_VALUE)
 		{
@@ -299,6 +299,7 @@ int main(void)
 			// debugging only: force new version
 			// I_DevicePrm.dpVerRdLn = 200000;
 
+			I_DevicePrm.dpVerRdLn = 213732; // ????????????
 			if (I_DevicePrm.dpVerRdLn == 0)
 			{
 				// SerialPutString("No new firmware found. run the current firmware\r\n");
@@ -370,6 +371,7 @@ int main(void)
 						*/
 						
 						// if (1) // dubug only: force upgrade new firmware.
+						I_DevicePrm.dpVerRcrc = 32713; // ???????????
 						if(I_DevicePrm.dpVerRcrc == glbCrc16)
 						{
 							/*

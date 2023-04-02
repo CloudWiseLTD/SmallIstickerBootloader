@@ -91,6 +91,8 @@ void TMR7_Sleep (u16 micro_seconds)
  //TMR 2 counter of 1 milli second//
 ErrorStatus TMR2_Init(void)
 {
+	return; // ????????????????
+
 #ifndef REMOVE_TIMERS
 
 	RCC_ClkInitTypeDef	clkconfig = {'\0'};
@@ -145,6 +147,10 @@ void TMR2_Sleep (u16 milli_seconds)
 #ifdef REMOVE_TIMERS
 	return;
 #endif
+
+	// ????????????????
+	HAL_Delay(milli_seconds);
+	return;
 
 	u32 inx = 0;
 
@@ -208,23 +214,28 @@ ErrorStatus TMR6_Init(void)
 void TIM6_DAC_IRQHandler(void)
 {
 #ifndef REMOVE_TIMERS
-	HAL_TIM_IRQHandler(&Tim6Handle);
+	//HAL_TIM_IRQHandler(&Tim6Handle);
 #endif
 }
 
 #ifndef REMOVE_TIMERS
  void HAL_TIM_CallBack(TIM_HandleTypeDef *htim)
 {
+	 /*
 	 if(htim->Instance == TIM6)
 	{
 		TMR6_Process_Handler();
 	}
+	*/
 }
 #endif
 
 void TMR6_Process_Handler(void)
 {
 	static u32 count = 0;
+
+	// ??????????????????
+	return;
 
 	/*
 	count++;
@@ -269,6 +280,7 @@ void TMR6_Process_Handler(void)
 //TMR 16 counter of 1 milli second//
 ErrorStatus TMR16_Init(void)
 {
+	/*
 #ifndef REMOVE_TIMERS
 	RCC_ClkInitTypeDef	clkconfig = {'\0'};
 	u32 timclock = 0U, APB2Prescaler = 0U, prescalerValue = 0U, pFLatency = 0U;
@@ -301,10 +313,12 @@ ErrorStatus TMR16_Init(void)
 		Error_Handler();
 	}
 #endif
+*/
 }
 
 void TMR16_Set(u16 milli_seconds)
 {
+	/*
 	TIM16->CR1 &= (u16)~TIM_CR1_CEN;
 
 	TIM16->CNT = 0;
@@ -314,10 +328,12 @@ void TMR16_Set(u16 milli_seconds)
 	TIM16->EGR |= TIM_EGR_UG;
 
 	TIM16->CR1 |= TIM_CR1_CEN;
+*/
 }
 
 void TMR16_Sleep (u16 milli_seconds)
 {
+/*
 	u32 inx = 0;
 
 	TMR16_Set(milli_seconds);
@@ -326,10 +342,12 @@ void TMR16_Sleep (u16 milli_seconds)
 	{
 		inx++;
 	}
+*/
 }
 
 u8 TMR16_Over(void)
 {
+	/*
 	if(TIM16->CNT)
 	{
 		return 0;
@@ -340,12 +358,13 @@ u8 TMR16_Over(void)
 		
 		return 1;
 	}
+	*/
 }
 
 void TMR6_DeInit(void)
 {
 #ifndef REMOVE_TIMERS
-	HAL_TIM_Base_DeInit(&Tim6Handle);
+	//HAL_TIM_Base_DeInit(&Tim6Handle);
 #endif
 }
 void TMR2_DeInit(void)
@@ -357,7 +376,7 @@ void TMR2_DeInit(void)
 void TMR16_DeInit(void)
 {
 #ifndef REMOVE_TIMERS
-	HAL_TIM_Base_DeInit(&Tim16Handle);
+	//HAL_TIM_Base_DeInit(&Tim16Handle);
 #endif
 }
 void TMR7_DeInit(void)

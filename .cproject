@@ -68,11 +68,11 @@
 							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.symbolsrec.1694951168" name="MCU Output Converter Motorola S-rec with symbols" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.symbolsrec"/>
 						</toolChain>
 					</folderInfo>
-					<fileInfo id="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug.1563772595.696986385" name="stm32l4xx_hal_tim.c" rcbsApplicability="disable" resourcePath="HAL/src/stm32l4xx_hal_tim.c" toolsToInvoke="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.922697720.1356034923">
-						<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.922697720.1356034923" name="MCU GCC Compiler" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.922697720"/>
+					<fileInfo id="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug.1563772595.1569690311" name="stm32l4xx_hal_tim.c" rcbsApplicability="disable" resourcePath="HAL/src/stm32l4xx_hal_tim.c" toolsToInvoke="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.922697720.1481770310">
+						<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.922697720.1481770310" name="MCU GCC Compiler" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.922697720"/>
 					</fileInfo>
 					<sourceEntries>
-						<entry excluding="HAL/src/stm32l4xx_hal_tim.c|HAL/src/stm32l4xx_hal_i2c.c|HAL/src/stm32l4xx_hal_uart.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="HAL/src/stm32l4xx_hal_i2c.c|HAL/src/stm32l4xx_hal_uart.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
