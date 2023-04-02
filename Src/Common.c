@@ -24,6 +24,8 @@ uint32_t JumpAddress;
 extern u8 ledFinished;
 extern u8 success_code;
 
+void BlinkLed(u8 led_code);
+
 /**
   * @brief  Convert an Integer to a string
   * @param  str: The string
@@ -164,82 +166,6 @@ uint32_t Str2Int(uint8_t *inputstr, int32_t *intnum)
 	return res;
 }
 
-/*
-void Main_Menu_NoApp(void)
-{
-	int32_t size = 0;
-
-	uint8_t key = 0;
-
-	while(1)
-	{
-		WD_Refresh();
-
-		SerialPutString("\r\n============ Flash Memory Menu ==================\r\n\n");
-
-		SerialPutString("Download Image To the Unit Internal Flash ------- 1\r\n\n");
-
-		SerialPutString("===============================================\r\n\n");
-
-		key = GetKey();
-
-		if (key == 0x31)
-		{
-			size = SerialDownload();
-
-			if(size > 0)
-			{
-				Going_To_APP();
-			}
-		}
-		else
-		{
-			SerialPutString("Invalid Number ! ==> The number should be 1\r");
-		}
-	}
-}
-*/
-
-/**
-  * @brief  Display the Main Menu on to HyperTerminal
-  * @param  None
-  * @retval None
-  */
-
-/*
-void Main_Menu(void)
-{
-	uint8_t key = 0;
-
-	while(1)
-	{
-		WD_Refresh();
-		SerialPutString("\r\n============ Flash Memory Menu ==================\r\n\n");
-
-		SerialPutString("  Download Image To the Unit Internal Flash ------- 1\r\n\n");
-
-		SerialPutString("  Execute The New Program ------------------------- 2\r\n\n");
-
-		SerialPutString("=====================================================\r\n\n");
-
-		key = GetKey();
-
-		if (key == 0x31)
-		{
-			SerialDownload();
-		}
-
-		else if (key == 0x32)
-		{
-			Going_To_APP();
-		}
-		else
-		{
-			SerialPutString("Invalid Number ! ==> The number should be either 1 or 2\r");
-		}
-	}
-}
-*/
 
 void Going_To_APP(void)
 {
@@ -249,16 +175,16 @@ void Going_To_APP(void)
 	ledFinished = 1;
 	Led_GPIO_Init();
 
-	// TMR2_Sleep(2000*10);
+	TMR2_Sleep(2000*10);
 
 	if (success_code==1)
 		BlinkLed(0);	// error - red blink
 	else if (success_code==2)
 		BlinkLed(1);	// success - green blink
 
-	// TMR2_Sleep(1000*10);
+	TMR2_Sleep(1000*10);
 	AllLights();
-	// TMR2_Sleep(2000*10);
+	TMR2_Sleep(2000*10);
 	Led_GPIO_Init();
 
 	HAL_FLASH_Lock();
