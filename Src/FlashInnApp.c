@@ -49,15 +49,13 @@
  ErrorStatus Transfer_Version(u32 verByteLn, u32 extFlsAddr, u8 * dataBuff, u32 inFlsDstAdd)
  {
 	 u8 wrBuff[4] = {0};
+	 u8 count = 0;
 	 
-  	memset(dataBuff, '\0', 1024);
+	 memset(dataBuff, '\0', 1024);
 	
 	 wrBuff[0] = FLS_RD_DATA_INST;
-		 
 	 wrBuff[1] = (u8)((extFlsAddr & 0x00FF0000) >> 16);
-		 
 	 wrBuff[2] = (u8)((extFlsAddr & 0x0000FF00) >> 8);
-		 
 	 wrBuff[3] = (u8)((extFlsAddr & 0x000000FF));
  
 	 while(verByteLn >= 1024)
@@ -75,16 +73,19 @@
 			 }
  
 			 inFlsDstAdd += 1024;
-			 
 			 extFlsAddr += 1024;
- 
 			 verByteLn -= 1024;
  
 			 wrBuff[1] = (u8)((extFlsAddr & 0x00FF0000) >> 16);
-				 
 			 wrBuff[2] = (u8)((extFlsAddr & 0x0000FF00) >> 8);
-				 
 			 wrBuff[3] = (u8)((extFlsAddr & 0x000000FF));
+
+			 count++;
+			 if (count >= 32)
+			 {
+				 count=0;
+				 BlinkLed(2);
+			 }
 		 }
 		 else
 		 {

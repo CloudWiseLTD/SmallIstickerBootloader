@@ -133,12 +133,7 @@ void PrintVersion(void)
 int main(void)
 {
  	uint32_t inx = 0; //,systemClock = 0;
-	uint8_t tmp8 = 0;
 	uint32_t param_address = 0;
-
-
-
-	charger_resistors_value = 0;
 
 	HAL_Init();
 
@@ -242,6 +237,8 @@ int main(void)
 
 	if (DevParms_Read_Flash(&I_DevicePrm, (u32)param_address) == SUCCESS)
 	{
+		BlinkLed(1);
+
 		// SerialPutString(" - Success\r\n");
 
 		// ??????????????? BlinkSequence();
@@ -362,18 +359,13 @@ int main(void)
 					
 					if (Flash_Calc_Version_CRC16(I_DevicePrm.dpVerRdLn,  EXTERNAL_FLASH_APP_START_ADDRESS , glbDatBuf ,&glbCrc16) == SUCCESS)
 					{
-						// SerialPutString(" - Success\r\n");
-
-						/*
-						// SerialPutString("Calc CRC16 of Ext Flash New Application Success\n\r");
-						sprintf( general_str, "Expected CRC=%d, Calculated CRC=%d\r\n" , I_DevicePrm.dpVerRcrc, glbCrc16);
-						SerialPutString(general_str);
-						*/
+						BlinkLed(1);
 						
 						// if (1) // dubug only: force upgrade new firmware.
 						I_DevicePrm.dpVerRcrc = 32713; // ???????????
 						if(I_DevicePrm.dpVerRcrc == glbCrc16)
 						{
+							BlinkLed(1);
 							/*
 							SerialPutString("External Flash CRC match\r\n");
 
@@ -385,33 +377,24 @@ int main(void)
 
 							if (Inner_Flash_Erase() == SUCCESS)
 							{
-								// SerialPutString(" - Success\r\n");
-								
-								// SerialPutString("Copying new firmware...\r\n");
+								BlinkLed(1);
 
+								// copy firmware from external flash to internal
 								if (Transfer_Version(I_DevicePrm.dpVerRdLn, EXTERNAL_FLASH_APP_START_ADDRESS, glbDatBuf, INNFLS_STR_APP_ADD) == SUCCESS)
 								{
-									// SerialPutString(" - Success\r\n");
-									
+									BlinkLed(1);
 									glbCrc16 = 0;
 
-									// SerialPutString("Calculating inner flash firmware CRC...\r\n");
-									
+									// check the CRC of the target copy (internal flash)
 									if (Inner_Flash_ClcCrc16(I_DevicePrm.dpVerRdLn, INNFLS_STR_APP_ADD , &glbCrc16, glbDatBuf, DATA_BUFFER_SIZE) == SUCCESS)
 									{
-										/*
-										sprintf( general_str, "Expected CRC=%d, Calculated CRC=%d\r\n" , I_DevicePrm.dpVerRcrc, glbCrc16);
-										SerialPutString(general_str);
-										*/
-										
+										BlinkLed(1);
+
 										// if (1) // debug only: force copy firmware
 										if (I_DevicePrm.dpVerRcrc == glbCrc16)
 										{
-											/*
-											SerialPutString("Inner Flash CRC match\r\n");
-											SerialPutString("The transfer succeeded\r\n");
-											*/
-											
+											BlinkLed(1);
+
 											I_DevicePrm.dpVerRcrc = 0;
 											I_DevicePrm.dpVerRdLn = 0;
 											I_DevicePrm.dpVersion = I_DevicePrm.dpVersionR;
