@@ -84,15 +84,9 @@ u8 general_str[256] = {'\0'};
 
 #include "ADC.h"
 
-extern u8 ledFinished;
 extern unsigned rtc_count;
 extern sDevice_Params I_DevicePrm;
 extern sADC_Msrs measurements;
-
-double charging_table[NUM_CHARGE_MODES];
-double current_charging_capacity;
-u8 charger_resistors_value = 0;
-u8 success_code = 0;
 
 // watch dog //
 void WD_Init(void);
@@ -115,7 +109,7 @@ static HAL_StatusTypeDef hal_status;
 #ifndef  REMOVE_BOOT_CONSTANTS
 
 static const unsigned char __attribute__((section (".boot_constants")))
-	boot_constants[16] = { 5, 1, HARDWARE_TYPE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+	boot_constants[16] = { 4, 50, HARDWARE_TYPE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
 #endif
 
@@ -209,8 +203,11 @@ int main(void)
 	{
 		BlinkLed(1);	// GREEN LED 01
 
+		#ifdef UNIT_TEST
+		I_DevicePrm.dpVersion = FLASH_ERASE_VALUE;
+		#endif
+
 		if (I_DevicePrm.dpVersion == FLASH_ERASE_VALUE)
-		// if (1) // UNIT-TEST ?????????????
 		{
 			// no application found. Nothing to do...
 
@@ -224,7 +221,9 @@ int main(void)
 		}
 		else
 		{
-			I_DevicePrm.dpVerRdLn = 213732; // UNIT-TEST: ????????????
+			#ifdef UNIT_TEST
+			I_DevicePrm.dpVerRdLn = 213732;
+			#endif
 			if (I_DevicePrm.dpVerRdLn == 0)
 			{
 				// no new application exist. jump to the existing one
@@ -233,8 +232,6 @@ int main(void)
 			}
 			else
 			{
-				success_code = 1;
-
 				if ((I_DevicePrm.dpVerRdLn > 0) && (I_DevicePrm.dpVerRdLn  < (INNFLS_MAX_APP_SIZE + 1)))
 				{
 					// The new firmware is in limit
@@ -244,7 +241,9 @@ int main(void)
 					{
 						BlinkLed(1);	// GREEN LED 01
 						
-						I_DevicePrm.dpVerRcrc = 32713; // UNIT-TEST: ????????????
+						#ifdef UNIT_TEST
+						I_DevicePrm.dpVerRcrc = 32713;
+						#endif
 						if(I_DevicePrm.dpVerRcrc == glbCrc16)
 						{
 							// the new firmware in the external flash has correct CRC
@@ -270,7 +269,9 @@ int main(void)
 										// the internal flash CRC calculation succeeded
 										BlinkLed(1);	// GREEN LED 02
 
-										// if (1) // UNIT-TEST: debug only: force copy firmware ???????????
+										#ifdef UNIT_TEST
+										I_DevicePrm.dpVerRcrc = glbCrc16;
+										#endif
 										if (I_DevicePrm.dpVerRcrc == glbCrc16)
 										{
 											// The new firmware in the internal flash has valid CRC
@@ -288,8 +289,6 @@ int main(void)
 											{
 												// writing the version of new firmware succeeds
 												BlinkLed(1);// GREEN LED 04
-
-												success_code = 2;
 
 												Going_To_APP();
 											}
@@ -354,11 +353,6 @@ int main(void)
 		DevParms_Burn_Flash(&I_DevicePrm);
 #endif
 		
-		while (ledFinished == 0)
-		{
-			inx++;
-		}
-
 		HAL_NVIC_SystemReset();
 	}
 	

@@ -15,20 +15,13 @@
 
 TIM_HandleTypeDef    Tim7Handle = {'\0'};
 
-u8 ledFinished = 0;
-
-extern u8 success_code;
 
 void TMR7_Set(u16 micro_seconds)
 {
 	TIM7->CR1 &= (u16)~TIM_CR1_CEN;
-
 	TIM7->CNT = 0;
-
 	TIM7->ARR = (micro_seconds);
-
 	TIM7->EGR |= TIM_EGR_UG;
-
 	TIM7->CR1 |= TIM_CR1_CEN;
 }
 
@@ -46,7 +39,6 @@ void TMR7_Sleep (u16 micro_seconds)
 
 void TMR7_Init(void)
 {
-#ifndef REMOVE_TIMERS
 	RCC_ClkInitTypeDef	clkconfig = {'\0'};
 	u32 timclock = 0U, APB1Prescaler = 0U, prescalerValue = 0U,	pFLatency = 0U;
 
@@ -77,14 +69,11 @@ void TMR7_Init(void)
 	{
 		Error_Handler();
 	}
-#endif
 }
 
 
 void TMR7_DeInit(void)
 {
-#ifndef REMOVE_TIMERS
 	HAL_TIM_Base_DeInit(&Tim7Handle);
-#endif
 }
 

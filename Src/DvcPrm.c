@@ -167,7 +167,6 @@ ErrorStatus DevParms_Read_Flash(sDevice_Params *P_HbDvcPrms, u32 dpFlsAddr)
   u32 CRC_Calc_Flash_Data(u8* pRdFlsbf, u16 dataBtSz)
   {
 	  u16 inx = 0;
-	  
 	  u32 sum = 0;
 	  
 	  for(inx = 0; inx < dataBtSz ;inx++)
@@ -209,9 +208,7 @@ ErrorStatus DevParms_Burn_Flash(sDevice_Params* P_DevicePrms)
   ErrorStatus Flash_Calc_Version_CRC16(u32 verByteLn, u32 extFlsAdd,u8 * dataBuff, u16 * pCrc16)
   {
 	  u8 count = 0;
-
 	  u8 wrBuff[4] = {0};
-  
 	  u16 crc16Lcl = 0;
 		  
 	  wrBuff[0] = FLS_RD_DATA_INST;

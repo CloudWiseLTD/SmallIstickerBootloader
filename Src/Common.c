@@ -21,10 +21,6 @@ pFunction Jump_To_Application;
 
 uint32_t JumpAddress;
 
-extern u8 ledFinished;
-extern u8 success_code;
-
-
 
 void Going_To_APP(void)
 {

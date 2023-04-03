@@ -37,8 +37,10 @@
 	#define HARDWARE_TYPE	6
 #endif
 
+// #define UNIT_TEST
 
-#define  REMOVE_BOOT_CONSTANTS
+
+//#define  REMOVE_BOOT_CONSTANTS
 #define  REMOVE_DMA
 #define  REMOVE_ADC
 // #define  REMOVE_TIMERS
