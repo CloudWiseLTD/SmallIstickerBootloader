@@ -81,7 +81,6 @@ u16 glbCrc16 = 0;
 
 u8 general_str[256] = {'\0'};
 
-void init_charge_tables(void);
 
 #include "ADC.h"
 
@@ -122,17 +121,10 @@ static const unsigned char __attribute__((section (".boot_constants")))
 
 int measure_count = 0;
 
-/*
-void PrintVersion(void)
-{
-	SerialPutString("\n\rCar Sticker Boot Loader Version 4.46 (no reg)");
-}
-*/
-
 
 int main(void)
 {
- 	uint32_t inx = 0; //,systemClock = 0;
+ 	uint32_t inx = 0;
 	uint32_t param_address = 0;
 
 	HAL_Init();
@@ -210,12 +202,8 @@ int main(void)
 	
 	ErrorStatus error = Flash_Init();
 
-	// ????????????? BlinkSequence();
 
-	/*
-	// SerialPutString("\n\rCar Sticker Boot Loader Version 4.44 (no reg)");
-	PrintVersion();
-
+/*
 #ifdef V4_REV2
 	SerialPutString(" V4-R2 HW3\r\n");
 #else
@@ -229,268 +217,140 @@ int main(void)
 		#endif
 	#endif
 #endif
-	*/
+*/
 
-	// check voltage
-
-	// SerialPutString("Reading Parameters...");
-
+	// loading device existing parameters
 	if (DevParms_Read_Flash(&I_DevicePrm, (u32)param_address) == SUCCESS)
 	{
 		BlinkLed(1);
 
-		// SerialPutString(" - Success\r\n");
-
-		// ??????????????? BlinkSequence();
-
 		if (I_DevicePrm.dpVersion == FLASH_ERASE_VALUE)
 		{
-			// SerialPutString("No Application Found\r\n");
+			// no application found. Nothing to do...
+
+			BlinkLed(0);
 
 			while(1)
 			{
 				TMR2_Sleep(3000);
 			}
-
-			/*
-			SerialPutString("Start Terminal Burn New Application\n\r");
-
-			while(1)
-			{
-				SerialPutString("Please Enter Password to Burn New Application\n\r");
-
-				tmp8 = GetKey();
-				tmp16|=(tmp8 - 0x30);
-				tmp16 <<= 4;
-				tmp8 = GetKey();
-				tmp16|= (tmp8 - 0x30);
-				tmp16 <<= 4;
-				tmp8 = GetKey();
-				tmp16 |= (tmp8 - 0x30);
-				tmp16 <<= 4;
-				tmp8 = GetKey();
-				tmp16 |= (tmp8 - 0x30);
-			
-				if (tmp16 == TERMINAL_PASSWORD)
-				{
-					Main_Menu_NoApp();
-				}
-				else
-				{
-					tmp8 = 0;
-					tmp16 = 0;
-					
-					SerialPutString("Password Entered is Wrong\n\r");
-				}
-			}
-			*/
 		}
 		else
 		{
-			/*
-			sprintf( general_str, "application version: %d.%d.%d\r\n" , (I_DevicePrm.dpVersion / 256), (I_DevicePrm.dpVersion % 256),  I_DevicePrm.dpBuild);
-			SerialPutString(general_str);
-			*/
-			// SerialPutString("Application is in Inner Flash\n\r");
-			
-			// debugging only: force new version
-			// I_DevicePrm.dpVerRdLn = 200000;
-
-			I_DevicePrm.dpVerRdLn = 213732; // ????????????
+			I_DevicePrm.dpVerRdLn = 213732; // UNIT-TEST: ????????????
 			if (I_DevicePrm.dpVerRdLn == 0)
 			{
-				// SerialPutString("No new firmware found. run the current firmware\r\n");
+				// no new application exist. jump to the existing one
 
-				// TMR2_Sleep(3000);
 				Going_To_APP();
-
-				/*
-				SerialPutString("Start Local Burn New Application\n\r");
-				
-				//TMR16_Set(5000);
-				TMR16_Set(500);
-					
-				while(1)
-				{
-					SerialPutString("Please Enter Password to Burn New Application\n\r");
-				
-					tmp8 = Get_Key_TimOut();
-					tmp16|=(tmp8 - 0x30);
-					tmp16 <<= 4;
-					tmp8 = Get_Key_TimOut();
-					tmp16|= (tmp8 - 0x30);
-					tmp16 <<= 4;
-					tmp8 = Get_Key_TimOut();
-					tmp16 |= (tmp8 - 0x30);
-					tmp16 <<= 4;
-					tmp8 = Get_Key_TimOut();
-					tmp16 |= (tmp8 - 0x30);
-				
-					if (tmp16 == TERMINAL_PASSWORD)
-					{
-						Main_Menu();
-					}
-					else
-					{
-						TMR16_Set(5000);	
-						
-						SerialPutString("Password Entered is Wrong\n\r");
-					}
-				}
-
-				*/
 			}
 			else
 			{
-				// indicate trying to burn new firmware by blinking led
 				success_code = 1;
-
-				/*
-				sprintf( general_str, "new firmware: %d.%d.%d - size: %d\r\n" , (I_DevicePrm.dpVersionR / 256), (I_DevicePrm.dpVersionR % 256),  I_DevicePrm.dpBuildR, I_DevicePrm.dpVerRdLn);
-				SerialPutString(general_str);
-				*/
 
 				if ((I_DevicePrm.dpVerRdLn > 0) && (I_DevicePrm.dpVerRdLn  < (INNFLS_MAX_APP_SIZE + 1)))
 				{
-					/*
-					SerialPutString("Found New firmware Update\r\n");
-					SerialPutString("Calculating extern CRC...");
-					*/
+					// The new firmware is in limit
+					BlinkLed(1);
 					
 					if (Flash_Calc_Version_CRC16(I_DevicePrm.dpVerRdLn,  EXTERNAL_FLASH_APP_START_ADDRESS , glbDatBuf ,&glbCrc16) == SUCCESS)
 					{
 						BlinkLed(1);
 						
-						// if (1) // dubug only: force upgrade new firmware.
-						I_DevicePrm.dpVerRcrc = 32713; // ???????????
+						I_DevicePrm.dpVerRcrc = 32713; // UNIT-TEST: ????????????
 						if(I_DevicePrm.dpVerRcrc == glbCrc16)
 						{
+							// the new firmware in the external flash has correct CRC
 							BlinkLed(1);
-							/*
-							SerialPutString("External Flash CRC match\r\n");
-
-							// SerialPutString("CRC16 of Ext Flash Compare Success\n\r");
-							SerialPutString("Erasing current firmware...");
-							*/
 							
 							__HAL_FLASH_CLEAR_FLAG(0xFFFF);
 
 							if (Inner_Flash_Erase() == SUCCESS)
 							{
+								// The current internal firmware is deleted successfully
 								BlinkLed(1);
 
 								// copy firmware from external flash to internal
 								if (Transfer_Version(I_DevicePrm.dpVerRdLn, EXTERNAL_FLASH_APP_START_ADDRESS, glbDatBuf, INNFLS_STR_APP_ADD) == SUCCESS)
 								{
+									// the transfer of the new firmware to internal flash succeededs
 									BlinkLed(1);
 									glbCrc16 = 0;
 
 									// check the CRC of the target copy (internal flash)
 									if (Inner_Flash_ClcCrc16(I_DevicePrm.dpVerRdLn, INNFLS_STR_APP_ADD , &glbCrc16, glbDatBuf, DATA_BUFFER_SIZE) == SUCCESS)
 									{
+										// the internal flash CRC calculation succeeded
 										BlinkLed(1);
 
-										// if (1) // debug only: force copy firmware
+										// if (1) // UNIT-TEST: debug only: force copy firmware ???????????
 										if (I_DevicePrm.dpVerRcrc == glbCrc16)
 										{
+											// The new firmware in the internal flash has valid CRC
+
 											BlinkLed(1);
 
+											// write the new version of the firmware
 											I_DevicePrm.dpVerRcrc = 0;
 											I_DevicePrm.dpVerRdLn = 0;
 											I_DevicePrm.dpVersion = I_DevicePrm.dpVersionR;
 											I_DevicePrm.dpBuild = I_DevicePrm.dpBuildR;
 
-											// SerialPutString("Burning the new version number...\r\n");
 											
 											if(DevParms_Burn_Flash(&I_DevicePrm) == SUCCESS)
 											{
-												// SerialPutString(" - Success\r\n");
+												// writing the version of new firmware succeedseds
+												BlinkLed(1);
 
 												success_code = 2;
-												// SerialPutString("Jumping To Application\r\n");
+
 												Going_To_APP();
 											}
 											else
-											{	
-												// SerialPutString(" - Failed\r\n");
-												// SerialPutString("Program Parameters into Ext Flash Failed\n\r");
-												
-												while(ledFinished == 0)
-												{
-													inx++;
-												}
-												
-												// HAL_NVIC_SystemReset();
+											{
+												// failed to update the new version numbers
 											}
 										}
 										else
 										{
-											// SerialPutString("Inner Flash CRC doesn't match\r\n");
-											
-											while(ledFinished == 0)
-											{
-												inx++;
-											}
-											
-											// HAL_NVIC_SystemReset();
+											// Inner Flash CRC doesn't match
 										}
 									}
 									else
 									{
-										// SerialPutString("Calculating inner CRC Failed\r\n");
-										
-										while(ledFinished == 0)
-										{
-											inx++;
-										}
-
-										// HAL_NVIC_SystemReset();
+										// Calculating inner CRC Failed
 									}
 								}
 								else
 								{
-									// SerialPutString(" - Failed\r\n");
-									//SerialPutString("Transfer Application from Ext Flash to Inner Flash Success\n\r");
-									
-									while (ledFinished == 0)
-									{
-										inx++;
-									}
-									
-									// HAL_NVIC_SystemReset();
+									// Transfer Application from Ext Flash to Inner Flash failed
 								}
 							}
 							else
 							{
-								// SerialPutString(" - Failed\r\n");
-								// SerialPutString("Erase Inner Flash Sectors 1-5 Failed\n\r");
-								
-								while(ledFinished == 0)
-								{
-									inx++;
-								}
-								
-								// HAL_NVIC_SystemReset();
+								// failed to erase inner flash.
 							}
 						}
 						else
 						{
-							// SerialPutString("External Flash CRC doesn't match\r\n");
+							// "External Flash CRC doesn't match
 						}
 					}
 					else
 					{
-						// SerialPutString(" - Failed\r\n");	// reading the external flash failed
+						// reading the external flash failed
 					}
 				}
 				else
 				{
-					/*
-					SerialPutString(" - Failed\r\n");
-					SerialPutString("New firmware is over-sized.\r\n");
-					*/
+					// "New firmware is over-sized.\r\n");
 				}
 			}
+
+			// some error in upgrading firmware. jump to the old firmware
+			BlinkLed(0);
+			BlinkLed(0);
+			BlinkLed(0);
 
 			// SerialPutString("Jumping To Application\r\n");
 			Going_To_APP();
@@ -499,9 +359,8 @@ int main(void)
 	}
 	else
 	{
-		// SerialPutString(" - Failed\n\r");
-
-		// SerialPutString("Setting manufacture defaults...\r\n");
+		// firmware loading parameters failed.
+		// set the default parameters.
 
 #ifndef REMOVE_PARAMS
 		DevParms_Set_Default(&I_DevicePrm);
@@ -520,26 +379,6 @@ int main(void)
 	{
 		inx++;	
 	}
-}
-
-void init_charge_tables(void)
-{
-	charging_table[0] = CHARGE_CURRENT_MODE_0;
-	charging_table[1] = CHARGE_CURRENT_MODE_1;
-	charging_table[2] = CHARGE_CURRENT_MODE_2;
-	charging_table[3] = CHARGE_CURRENT_MODE_3;
-	charging_table[4] = CHARGE_CURRENT_MODE_4;
-	charging_table[5] = CHARGE_CURRENT_MODE_5;
-	charging_table[6] = CHARGE_CURRENT_MODE_6;
-	charging_table[7] = CHARGE_CURRENT_MODE_7;
-	charging_table[8] = CHARGE_CURRENT_MODE_8;
-	charging_table[9] = CHARGE_CURRENT_MODE_9;
-	charging_table[10] = CHARGE_CURRENT_MODE_10;
-	charging_table[11] = CHARGE_CURRENT_MODE_11;
-	charging_table[12] = CHARGE_CURRENT_MODE_12;
-	charging_table[13] = CHARGE_CURRENT_MODE_13;
-	charging_table[14] = CHARGE_CURRENT_MODE_14;
-	charging_table[15] = CHARGE_CURRENT_MODE_15;
 }
 
 
@@ -583,63 +422,7 @@ void ConvertMeasurementUnits(void)
 	return measurements_res;
 }
 
-void SetResistor( GPIO_TypeDef* port , u16 pin, u8 is_set)
-{
-}
 
-void SetChargingMode1(unsigned char value)
-{
-}
-
-
-
-/*
-u8 SetChargingMode(float solar_value)
-{
-	u8 charging_increased = 0;
-
-	if (solar_value >= SOLAR_MORE_CHARGER_TH)
-	{
-		if (charger_resistors_value < (NUM_CHARGE_MODES-1) )
-		{
-			charging_increased = 1;
-			charger_resistors_value++;
-
-			SetChargingMode1(0);
-		}
-
-	}
-	else if (solar_value >= SOLAR_SAME_CHARGER_TH)
-	{
-		// stay on the same charger
-	}
-	else if (solar_value >= SOLAR_REDUCE_CHARGER_TH)
-	{
-
-		if (charger_resistors_value > 0)
-		{
-			charger_resistors_value--;
-			SetChargingMode1(1);
-		}
-	}
-
-	else
-	{
-		if (charger_resistors_value > 0)
-		{
-			charger_resistors_value--;
-
-			if (charger_resistors_value > 0)
-				charger_resistors_value--;
-
-			SetChargingMode1(1);
-		}
-	}
-
-
-	return charging_increased;
-}
-*/
 
 
 u8 TestVoltage(unsigned char enable_print)
@@ -680,23 +463,6 @@ u8 TestVoltage(unsigned char enable_print)
 	if (enable_solar_charger)
 		HAL_GPIO_WritePin(IO_PORT_CHARGE_EN, IO_PIN_CHARGE_EN, GPIO_PIN_RESET);
 
-
-/*
-#ifdef UART_DEBUG
-	if (enable_print)
-	{
-		float x = measurements_res.adcVBatt*1000;
-
-		measure_count++;
-		sprintf( general_str, "\r\n%d) Temperature=%d, Vbat=%dmV, solar charger enable=%d\r\n" , measure_count, (int)measurements_res.adcTemp, (int)x, enable_solar_charger );
-		SerialPutString(general_str);
-
-		PrintVersion();
-	}
-#endif
-*/
-
-
 	return ret;
 }
 
@@ -706,20 +472,7 @@ void CheckVoltages(void)
 	//u8 stay_in_bootloader;
 	//u8 resitor_changed;
 	//u8 successive_voltage_count = 0;
-	u8 first_loop = 1;
 	u8 i;
-
-	//current_charging_capacity = 0.0f;
-	// init_charge_tables();
-
-	/*
-	if (hal_status != HAL_OK)
-	{
-		HAL_GPIO_WritePin(IO_PORT_LED_RED, IO_PIN_LED_RED, GPIO_PIN_RESET);
-
-		TMR2_Sleep(3000);
-	}
-	*/
 
 	while (1)
 	{
@@ -751,106 +504,12 @@ void CheckVoltages(void)
 
 		WD_Refresh();
 
-		// first scan: check if charging resistor changed
-
-		/*
-		ActivateScan();
-		ConvertMeasurementUnits();
-
-
-		WD_Refresh();
-
-
-		// when no light but battery is good, exit bootloader any way
-		//if (measurements_res.adcSolarV < 3.0)
-		{
-			if ( measurements_res.adcVBatt >= START_OPEREATION_VOLTAGE )
-			{
-				successive_voltage_count++;
-
-				if (successive_voltage_count>=5)
-					break;
-			}
-			else
-			{
-				successive_voltage_count = 0;
-			}
-		}
-		*/
-
 		if (TestVoltage(1))
 			break;
-
-		/*
-		// update charging capacity
-		if ( measurements_res.adcSolarV >= SOLAR_FULL_TH )
-		{
-			current_charging_capacity += charging_table[charger_resistors_value] * RTC_WAKEUP_INTERRUPT / 3600;
-
-			if ( current_charging_capacity > BATTERY_FULL_CAPACITY )
-				current_charging_capacity = BATTERY_FULL_CAPACITY;
-		}
-		*/
-
-		// resitor_changed = SetChargingMode(measurements_res.adcSolarV);
-
-		/*
-		if (resitor_changed)
-		{
-			TMR2_Sleep(50);
-
-			// second scan in order to verify that the solar voltage is still stable
-			ActivateScan();
-			ConvertMeasurementUnits();
-
-			// if the voltage is not stable, change charging resistors back
-			if ( measurements_res.adcSolarV < SOLAR_SAME_CHARGER_TH)
-				SetChargingMode(measurements_res.adcSolarV);
-		}
-		*/
-
-
-		/*
-		stay_in_bootloader = 0;
-
-		// stay in boot-loader if voltage is low
-		if (measurements_res.adcVBatt < CUTOFF_VOLTAGE)
-			stay_in_bootloader = 1;
-
-		// stay in boot-loader if not enough charging time
-		if ( current_charging_capacity < MIN_CHARGING_CAPACITY)
-			stay_in_bootloader = 1;
-		else
-			resitor_changed = 0;
-		*/
-
 
 		//if (stay_in_bootloader)
 		if (1)
 		{
-			/*
-			TMR2_Sleep(1000);
-			TMR2_Sleep(1000);
-			TMR2_Sleep(1000);
-			*/
-
-			WD_Refresh();
-
-			// blue led
-
-			//HAL_GPIO_WritePin(IO_PORT_LED_BLUE, IO_PIN_LED_BLUE, GPIO_PIN_RESET);
-			//HAL_GPIO_WritePin(IO_PORT_LED_RED, IO_PIN_LED_RED, GPIO_PIN_RESET);
-
-			/*
-			if (first_loop)
-				TMR2_Sleep(1500);
-			else
-				TMR2_Sleep(20);
-			*/
-
-			//HAL_GPIO_WritePin(IO_PORT_LED_BLUE, IO_PIN_LED_BLUE, GPIO_PIN_SET);
-			//HAL_GPIO_WritePin(IO_PORT_LED_RED, IO_PIN_LED_RED, GPIO_PIN_SET);
-
 			WD_Refresh();
 
 			// close ports
@@ -874,10 +533,6 @@ void CheckVoltages(void)
 			USART1_Init();
 			#endif
 			#endif
-
-
-			// this delay for testing current consumption during measurement stage duty-cycle
-			// TMR2_Sleep(3000);
 		}
 		else
 		{
@@ -885,8 +540,6 @@ void CheckVoltages(void)
 		}
 
 		WD_Refresh();
-
-		first_loop = 0;
 	}
 }
 
@@ -904,34 +557,23 @@ void BlinkSequence(void)
 void AllLights(void)
 {
 #ifdef CIRCUIT_V4
-	HAL_GPIO_WritePin(IO_PORT_LED_BLUE, IO_PIN_LED_BLUE, GPIO_PIN_RESET);
-	//TMR2_Sleep(500);
-	HAL_GPIO_WritePin(IO_PORT_LED_RED, IO_PIN_LED_RED, GPIO_PIN_RESET);
-	//TMR2_Sleep(500);
-	HAL_GPIO_WritePin(IO_PORT_LED_RED, IO_PIN_LED_GREEN, GPIO_PIN_RESET);
-	TMR2_Sleep(2500);
 
+	HAL_GPIO_WritePin(IO_PORT_LED_BLUE, IO_PIN_LED_BLUE, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(IO_PORT_LED_RED, IO_PIN_LED_RED, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(IO_PORT_LED_RED, IO_PIN_LED_GREEN, GPIO_PIN_RESET);
 	HAL_GPIO_WritePin(IO_PORT_LED_RED, IO_PIN_LED_GREEN, GPIO_PIN_SET);
-	//TMR2_Sleep(500);
 	HAL_GPIO_WritePin(IO_PORT_LED_RED, IO_PIN_LED_RED, GPIO_PIN_SET);
-	//TMR2_Sleep(500);
 	HAL_GPIO_WritePin(IO_PORT_LED_BLUE, IO_PIN_LED_BLUE, GPIO_PIN_SET);
-	//TMR2_Sleep(500);
 
 #else
+
 	HAL_GPIO_WritePin(IO_PORT_LED_BLUE, IO_PIN_LED_BLUE, GPIO_PIN_SET);
-	//TMR2_Sleep(500);
 	HAL_GPIO_WritePin(IO_PORT_LED_RED, IO_PIN_LED_RED, GPIO_PIN_SET);
-	//TMR2_Sleep(500);
 	HAL_GPIO_WritePin(IO_PORT_LED_RED, IO_PIN_LED_GREEN, GPIO_PIN_SET);
 	TMR2_Sleep(2500);
-
 	HAL_GPIO_WritePin(IO_PORT_LED_RED, IO_PIN_LED_GREEN, GPIO_PIN_RESET);
-	//TMR2_Sleep(250);
 	HAL_GPIO_WritePin(IO_PORT_LED_RED, IO_PIN_LED_RED, GPIO_PIN_RESET);
-	//TMR2_Sleep(250);
 	HAL_GPIO_WritePin(IO_PORT_LED_BLUE, IO_PIN_LED_BLUE, GPIO_PIN_RESET);
-	//TMR2_Sleep(250);
 
 #endif
 }
