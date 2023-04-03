@@ -59,8 +59,9 @@
 	 }
 
 	 HAL_GPIO_WritePin(port, pin, GPIO_PIN_RESET);
-	 HAL_Delay(100*3);
+	 HAL_Delay(100*2);
 	 HAL_GPIO_WritePin(port, pin, GPIO_PIN_SET);
+	 HAL_Delay(100*2);
  }
 
 

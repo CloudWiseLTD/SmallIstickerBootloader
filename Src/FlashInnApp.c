@@ -81,7 +81,7 @@
 			 wrBuff[3] = (u8)((extFlsAddr & 0x000000FF));
 
 			 count++;
-			 if (count >= 32)
+			 if (count >= 16)
 			 {
 				 count=0;
 				 BlinkLed(2);

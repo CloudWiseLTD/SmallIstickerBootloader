@@ -138,9 +138,6 @@ void  DeInit_Peripherals(void)
 	SPI2_DeInit();
 	
 	TMR7_DeInit();
-	TMR6_DeInit();
-	TMR2_DeInit();
-	TMR16_DeInit();
 
 	GPIOB->MODER = 0xFFFFFFDF;
 	GPIOC->MODER = 0xFFFFFFFF;

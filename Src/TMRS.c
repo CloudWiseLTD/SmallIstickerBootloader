@@ -15,8 +15,6 @@
 
 TIM_HandleTypeDef    Tim7Handle = {'\0'};
 
-u8 cntLed = 0;
-u8 cntISR = 0;
 u8 ledFinished = 0;
 
 extern u8 success_code;

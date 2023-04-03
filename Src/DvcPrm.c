@@ -240,7 +240,7 @@ ErrorStatus DevParms_Burn_Flash(sDevice_Params* P_DevicePrms)
 		  }
 
 		  count++;
-		  if (count >= 32)
+		  if (count >= 16)
 		  {
 			  WD_Refresh();
 			  BlinkLed(2);

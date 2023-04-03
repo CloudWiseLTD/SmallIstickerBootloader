@@ -115,7 +115,7 @@ static HAL_StatusTypeDef hal_status;
 #ifndef  REMOVE_BOOT_CONSTANTS
 
 static const unsigned char __attribute__((section (".boot_constants")))
-	boot_constants[16] = { 4, 46, HARDWARE_TYPE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+	boot_constants[16] = { 5, 1, HARDWARE_TYPE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
 #endif
 
@@ -160,6 +160,9 @@ int main(void)
 #endif
 
 	Led_GPIO_Init();
+	BlinkSequence();
+	BlinkSequence();
+	BlinkSequence();
 	GPS_GPIO_Close();
 
 	// the test is moved to the application
@@ -168,11 +171,8 @@ int main(void)
 #endif
 
 	SystemClock_Config();
-
 	HAL_FLASH_Lock();
-
 	HAL_FLASH_Unlock();
-
 
 	SPI2_Init();
 	TMR7_Init();
@@ -207,19 +207,20 @@ int main(void)
 	// loading device existing parameters
 	if (DevParms_Read_Flash(&I_DevicePrm, (u32)param_address) == SUCCESS)
 	{
-		BlinkLed(1);
+		BlinkLed(1);	// GREEN LED 01
 
 		if (I_DevicePrm.dpVersion == FLASH_ERASE_VALUE)
+		// if (1) // UNIT-TEST ?????????????
 		{
 			// no application found. Nothing to do...
 
 			BlinkLed(0);
 
-			// how to delay in this state ???????????????
-			while(1)
-			{
-				HAL_Delay(3000);
-			}
+			// the best thing to do is to disable all peripheral, enter stop mode
+			// and let the device to reach watch-dog state.
+
+			DeInit_Peripherals();
+			HAL_PWREx_EnterSTOP2Mode(PWR_STOPENTRY_WFI);
 		}
 		else
 		{
@@ -237,44 +238,44 @@ int main(void)
 				if ((I_DevicePrm.dpVerRdLn > 0) && (I_DevicePrm.dpVerRdLn  < (INNFLS_MAX_APP_SIZE + 1)))
 				{
 					// The new firmware is in limit
-					BlinkLed(1);
+					BlinkLed(1);	// GREEN LED 02
 					
 					if (Flash_Calc_Version_CRC16(I_DevicePrm.dpVerRdLn,  EXTERNAL_FLASH_APP_START_ADDRESS , glbDatBuf ,&glbCrc16) == SUCCESS)
 					{
-						BlinkLed(1);
+						BlinkLed(1);	// GREEN LED 01
 						
 						I_DevicePrm.dpVerRcrc = 32713; // UNIT-TEST: ????????????
 						if(I_DevicePrm.dpVerRcrc == glbCrc16)
 						{
 							// the new firmware in the external flash has correct CRC
-							BlinkLed(1);
+							BlinkLed(1);	// GREEN LED 02
 							
 							__HAL_FLASH_CLEAR_FLAG(0xFFFF);
 
 							if (Inner_Flash_Erase() == SUCCESS)
 							{
 								// The current internal firmware is deleted successfully
-								BlinkLed(1);
+								BlinkLed(1);	// GREEN LED 03
 
 								// copy firmware from external flash to internal
 								if (Transfer_Version(I_DevicePrm.dpVerRdLn, EXTERNAL_FLASH_APP_START_ADDRESS, glbDatBuf, INNFLS_STR_APP_ADD) == SUCCESS)
 								{
 									// the transfer of the new firmware to internal flash succeededs
-									BlinkLed(1);
+									BlinkLed(1);	// GREEN LED 01
 									glbCrc16 = 0;
 
 									// check the CRC of the target copy (internal flash)
 									if (Inner_Flash_ClcCrc16(I_DevicePrm.dpVerRdLn, INNFLS_STR_APP_ADD , &glbCrc16, glbDatBuf, DATA_BUFFER_SIZE) == SUCCESS)
 									{
 										// the internal flash CRC calculation succeeded
-										BlinkLed(1);
+										BlinkLed(1);	// GREEN LED 02
 
 										// if (1) // UNIT-TEST: debug only: force copy firmware ???????????
 										if (I_DevicePrm.dpVerRcrc == glbCrc16)
 										{
 											// The new firmware in the internal flash has valid CRC
 
-											BlinkLed(1);
+											BlinkLed(1);// GREEN LED 03
 
 											// write the new version of the firmware
 											I_DevicePrm.dpVerRcrc = 0;
@@ -285,8 +286,8 @@ int main(void)
 											
 											if(DevParms_Burn_Flash(&I_DevicePrm) == SUCCESS)
 											{
-												// writing the version of new firmware succeedseds
-												BlinkLed(1);
+												// writing the version of new firmware succeeds
+												BlinkLed(1);// GREEN LED 04
 
 												success_code = 2;
 
@@ -525,12 +526,10 @@ void CheckVoltages(void)
 
 void BlinkSequence(void)
 {
-	HAL_Delay(0);
-	TMR2_Sleep(100*10);
-	HAL_Delay(0);
-	TMR2_Sleep(100*10);
+	BlinkLed(0);
+	HAL_Delay(100);
 	BlinkLed(1);
-	HAL_Delay(100*10);
+	HAL_Delay(100);
 	BlinkLed(2);
 }
 
