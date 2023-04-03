@@ -140,9 +140,6 @@ int main(void)
 		WD_Refresh();
 	#endif
 
-	// HAL_Delay(3000); // ??????????
-
-
 	Enable_GPIO_Clocks();
 
 	GPIO_Init();
@@ -155,13 +152,6 @@ int main(void)
 	//TMR2_Sleep(100);
 	Regulator_DeInit();
 	TMR2_Sleep(100);
-
-	#ifdef UART_DEBUG
-	#ifndef REMOVE_UART
-	USART1_Init();
-	#endif
-	#endif
-
 
 	hal_status = RTC_Init();
 
@@ -188,10 +178,6 @@ int main(void)
 	TMR7_Init();
 	// TMR6_Init();
 	// TMR16_Init();
-
-	#ifndef UART_DEBUG
-	USART1_Init();
-	#endif
 	
 	Regulator_Init();
 
@@ -527,12 +513,6 @@ void CheckVoltages(void)
 			ADC1_Init();
 			Led_GPIO_Init();
 			// TMR6_Init();
-
-			#ifdef UART_DEBUG
-			#ifndef REMOVE_UART
-			USART1_Init();
-			#endif
-			#endif
 		}
 		else
 		{

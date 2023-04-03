@@ -38,13 +38,7 @@
 #endif
 
 
-
-#define UART_DEBUG
-
-#define REMOVE_UART
 #define  REMOVE_BOOT_CONSTANTS
-#define  REMOVE_YMODEM
-#define  REMOVE_DOWNLOAD
 #define  REMOVE_DMA
 #define  REMOVE_ADC
 // #define  REMOVE_TIMERS

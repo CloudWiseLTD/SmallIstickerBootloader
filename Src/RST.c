@@ -135,13 +135,6 @@ void GPS_GPIO_Close(void)
 
 void  DeInit_Peripherals(void)
 {
-	#ifdef UART_DEBUG
-	#ifndef REMOVE_UART
-	USART1_DeInit();
-	#endif
-	#endif
-
-
 	SPI2_DeInit();
 	
 	TMR7_DeInit();
