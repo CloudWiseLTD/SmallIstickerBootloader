@@ -94,8 +94,7 @@ ErrorStatus Flash_Erase_Sector(u32 sctAddr)
 					{
 						timOut++;
 
-						// TMR2_Sleep(10);
-						TMR2_Sleep(100);
+						HAL_Delay(100);
 						
 						if(Flash_Read_Data(&sttCmd, 1, &sttRg1Val , 1) == SUCCESS)
 						{

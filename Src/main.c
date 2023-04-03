@@ -147,11 +147,11 @@ int main(void)
 	// TMR2_Init();
 
 	//what the purpose of this line ?
-	//TMR2_Sleep(100);
+	//HAL_Delay(100);
 	//Regulator_Init();
-	//TMR2_Sleep(100);
+	//HAL_Delay(100);
 	Regulator_DeInit();
-	TMR2_Sleep(100);
+	HAL_Delay(100);
 
 	hal_status = RTC_Init();
 
@@ -183,8 +183,8 @@ int main(void)
 
 	memset(&I_DevicePrm,0 , sizeof(I_DevicePrm));
 	
-	// TMR2_Sleep(25);
-	// TMR2_Sleep(1000);
+	// HAL_Delay(25);
+	// HAL_Delay(1000);
 	
 	ErrorStatus error = Flash_Init();
 
@@ -204,7 +204,6 @@ int main(void)
 	#endif
 #endif
 */
-
 	// loading device existing parameters
 	if (DevParms_Read_Flash(&I_DevicePrm, (u32)param_address) == SUCCESS)
 	{
@@ -216,9 +215,10 @@ int main(void)
 
 			BlinkLed(0);
 
+			// how to delay in this state ???????????????
 			while(1)
 			{
-				TMR2_Sleep(3000);
+				HAL_Delay(3000);
 			}
 		}
 		else
@@ -479,13 +479,13 @@ void CheckVoltages(void)
 
 			for (i=0 ; i<3 ; i++)
 			{
-				TMR2_Sleep(15);
+				HAL_Delay(15);
 				TestVoltage(0);
 			}
 
 			HAL_GPIO_WritePin(IO_PORT_LED_GREEN, IO_PIN_LED_RED, GPIO_PIN_SET);
 			HAL_GPIO_WritePin(IO_PORT_CLK_OUT, IO_PIN_CLK_OUT, GPIO_PIN_RESET);
-			TMR2_Sleep(10);
+			HAL_Delay(10);
 		}
 
 		WD_Refresh();
@@ -525,12 +525,12 @@ void CheckVoltages(void)
 
 void BlinkSequence(void)
 {
-	BlinkLed(0);
+	HAL_Delay(0);
 	TMR2_Sleep(100*10);
-	BlinkLed(0);
+	HAL_Delay(0);
 	TMR2_Sleep(100*10);
 	BlinkLed(1);
-	TMR2_Sleep(100*10);
+	HAL_Delay(100*10);
 	BlinkLed(2);
 }
 
@@ -550,7 +550,6 @@ void AllLights(void)
 	HAL_GPIO_WritePin(IO_PORT_LED_BLUE, IO_PIN_LED_BLUE, GPIO_PIN_SET);
 	HAL_GPIO_WritePin(IO_PORT_LED_RED, IO_PIN_LED_RED, GPIO_PIN_SET);
 	HAL_GPIO_WritePin(IO_PORT_LED_RED, IO_PIN_LED_GREEN, GPIO_PIN_SET);
-	TMR2_Sleep(2500);
 	HAL_GPIO_WritePin(IO_PORT_LED_RED, IO_PIN_LED_GREEN, GPIO_PIN_RESET);
 	HAL_GPIO_WritePin(IO_PORT_LED_RED, IO_PIN_LED_RED, GPIO_PIN_RESET);
 	HAL_GPIO_WritePin(IO_PORT_LED_BLUE, IO_PIN_LED_BLUE, GPIO_PIN_RESET);

@@ -85,6 +85,7 @@
 			 {
 				 count=0;
 				 BlinkLed(2);
+				 WD_Refresh();
 			 }
 		 }
 		 else

@@ -28,22 +28,13 @@ extern u8 success_code;
 
 void Going_To_APP(void)
 {
-	u32 inx = 0;
-
 	WD_Refresh();
-	ledFinished = 1;
 	Led_GPIO_Init();
 
-	// TMR2_Sleep(2000*10);
+	HAL_Delay(1000);
 
-	if (success_code==1)
-		BlinkLed(0);	// error - red blink
-	else if (success_code==2)
-		BlinkLed(1);	// success - green blink
-
-	// TMR2_Sleep(1000*10);
 	AllLights();
-	// TMR2_Sleep(2000*10);
+	HAL_Delay(200);
 	Led_GPIO_Init();
 
 	HAL_FLASH_Lock();

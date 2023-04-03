@@ -59,7 +59,7 @@
 	 }
 
 	 HAL_GPIO_WritePin(port, pin, GPIO_PIN_RESET);
-	 TMR2_Sleep(100*3);
+	 HAL_Delay(100*3);
 	 HAL_GPIO_WritePin(port, pin, GPIO_PIN_SET);
  }
 

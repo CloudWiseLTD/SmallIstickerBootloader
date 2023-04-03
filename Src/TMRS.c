@@ -142,6 +142,7 @@ void TMR2_Set(u16 milli_seconds)
 	TIM2->CR1 |= TIM_CR1_CEN;
 }
 
+/*
 void TMR2_Sleep (u16 milli_seconds)
 {
 #ifdef REMOVE_TIMERS
@@ -161,6 +162,7 @@ void TMR2_Sleep (u16 milli_seconds)
 		inx++;
 	}
 }
+*/
 
 //TMR 6 interrupt every 100 milli//
 ErrorStatus TMR6_Init(void)

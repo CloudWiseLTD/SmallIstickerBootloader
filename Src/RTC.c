@@ -73,7 +73,7 @@ HAL_StatusTypeDef  RTC_Init(void)
 	RCC->BDCR &= ~(RCC_BDCR_RTCSEL_0|RCC_BDCR_RTCSEL_1);
 	RCC->BDCR |= (RCC_BDCR_RTCEN);
 	RCC->BDCR |= (RCC_BDCR_RTCSEL_0);
-	TMR2_Sleep(10);
+	HAL_Delay(10);
 
 	I_RtcHandle.Instance = RTC;
 
