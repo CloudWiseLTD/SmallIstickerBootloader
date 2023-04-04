@@ -126,8 +126,8 @@
 	FLASH_EraseInitTypeDef I_FlsErase = {'\0'};
 
 	I_FlsErase.Banks = FLASH_BANK_1;
-	I_FlsErase.NbPages = 108;
-	I_FlsErase.Page = 20;
+	I_FlsErase.NbPages = 120;
+	I_FlsErase.Page = 8;
 	I_FlsErase.TypeErase=FLASH_TYPEERASE_PAGES;
 	
 	if(HAL_FLASHEx_Erase(&I_FlsErase, &PgErrPtr) != HAL_OK)

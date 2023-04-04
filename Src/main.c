@@ -109,7 +109,7 @@ static HAL_StatusTypeDef hal_status;
 #ifndef  REMOVE_BOOT_CONSTANTS
 
 static const unsigned char __attribute__((section (".boot_constants")))
-	boot_constants[16] = { 4, 50, HARDWARE_TYPE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+	boot_constants[16] = { 5, 1, HARDWARE_TYPE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
 #endif
 
@@ -198,6 +198,7 @@ int main(void)
 	#endif
 #endif
 */
+
 	// loading device existing parameters
 	if (DevParms_Read_Flash(&I_DevicePrm, (u32)param_address) == SUCCESS)
 	{
@@ -259,7 +260,7 @@ int main(void)
 								// copy firmware from external flash to internal
 								if (Transfer_Version(I_DevicePrm.dpVerRdLn, EXTERNAL_FLASH_APP_START_ADDRESS, glbDatBuf, INNFLS_STR_APP_ADD) == SUCCESS)
 								{
-									// the transfer of the new firmware to internal flash succeededs
+									// the transfer of the new firmware to internal flash succeeds
 									BlinkLed(1);	// GREEN LED 01
 									glbCrc16 = 0;
 
