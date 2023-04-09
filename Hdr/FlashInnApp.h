@@ -22,5 +22,6 @@ ErrorStatus Inner_Flash_ClcCrc16(u32 verByteLn, u32 innFlsAdd, u16* pCrc16, u8* 
 //#define INNFLS_MAX_APP_SIZE		(INNFLS_END_APP_ADD - INNFLS_STR_APP_ADD)
 //#define INNFLS_MAX_APP_SIZE			(48*FLASH_SECTOR_SIZE)
 #define INNFLS_MAX_APP_SIZE			(240*1024)
+#define INNFLS_MIN_APP_SIZE			(216*1024)
 
 #endif /* FLASHINNAPP_H_ */

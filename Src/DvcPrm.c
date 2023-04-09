@@ -21,10 +21,6 @@
 
 ErrorStatus DevParms_Program_Flash(u8 * flsWrtBf, u16 flsWrtBfLn, u32 flsAddr)
 {
-#ifdef REMOVE_PARAMS
-	return ERROR;
-#endif
-
     static u8 wrPrgBff[320];
 	static u8 rdPrgBff[320];
 	
@@ -124,10 +120,6 @@ ErrorStatus DevParms_Program_Flash(u8 * flsWrtBf, u16 flsWrtBfLn, u32 flsAddr)
  
 ErrorStatus DevParms_Read_Flash(sDevice_Params *P_HbDvcPrms, u32 dpFlsAddr)
 {
-#ifdef REMOVE_PARAMS
-	return ERROR;
-#endif
-
   	u32	crcCalcFls = 0;
 
   	u8 wrBuff[4] = {0};
@@ -295,7 +287,10 @@ ErrorStatus DevParms_Burn_Flash(sDevice_Params* P_DevicePrms)
   	P_DevicePrms->SecurityMode = 0;
   	P_DevicePrms->GsmMode = 2;
 
+  	// bootload constants
   	P_DevicePrms->HardwareType = HARDWARE_TYPE;
+  	P_DevicePrms->BootMajorVersion = MAJOR_VERSION;
+  	P_DevicePrms->BootMinorVersion = MINOR_VERSION;
 
   	//memset(P_DevicePrms->ssIdName1,0x00,32);
   	//memset(P_DevicePrms->ssIdPswrd1,0x00,32);
@@ -318,8 +313,6 @@ ErrorStatus DevParms_Burn_Flash(sDevice_Params* P_DevicePrms)
  	char* p1;
  	u32 size;
 
-#ifndef REMOVE_PARAMS
-
 
  	p1 = (char*)( &(I_DevicePrm) );
  	p2 = (char*)( &(I_DevicePrm.dpCrc) );
@@ -327,7 +320,5 @@ ErrorStatus DevParms_Burn_Flash(sDevice_Params* P_DevicePrms)
  	size = (p2-p1);
 
  	return size;
-
-#endif
 
  }

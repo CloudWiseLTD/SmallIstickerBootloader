@@ -27,8 +27,8 @@ typedef struct
 	char ssIdPswrd3[32];
 	char ssIdPswrd4[16];
 
-	unsigned char Rev1;
-	unsigned char Rev2;
+	unsigned char BootMajorVersion;
+	unsigned char BootMinorVersion;;
 	unsigned char Rev3;
 	unsigned char Rev4;
 	unsigned char Rev5;

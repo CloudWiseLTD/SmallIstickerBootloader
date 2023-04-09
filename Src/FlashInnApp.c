@@ -211,6 +211,28 @@
 	  return SUCCESS;
   }
 
+
+ unsigned char is_flash_empty(void)
+ {
+	 u32 dataInbuf;
+	 u32 innSrcAdd = INNFLS_STR_APP_ADD;
+	 u16 i = 0;
+
+	 while(i < 256)
+	 {
+		 dataInbuf = *(u32*)innSrcAdd;
+
+		 if (dataInbuf != 0xFFFFFFFF)
+			 return 0;
+
+		 i += 4;
+		 innSrcAdd += 4;
+	 }
+
+	 return 1;
+ }
+
+
  ErrorStatus Inner_Flash_ClcCrc16(u32 verByteLn, u32 innFlsAdd, u16* pCrc16, u8* dataBuff, u32 buffLen)
  {
 	 u32 innSrcAdd = innFlsAdd;

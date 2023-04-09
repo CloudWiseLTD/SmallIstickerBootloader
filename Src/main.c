@@ -79,8 +79,6 @@
 u8 glbDatBuf[DATA_BUFFER_SIZE + 2] = {'\0'};
 u16 glbCrc16 = 0;
 
-u8 general_str[256] = {'\0'};
-
 
 #include "ADC.h"
 
@@ -106,14 +104,14 @@ static HAL_StatusTypeDef hal_status;
  * byte 2: Hardware type
  */
 
+/*
 #ifndef  REMOVE_BOOT_CONSTANTS
 
 static const unsigned char __attribute__((section (".boot_constants")))
 	boot_constants[16] = { 5, 1, HARDWARE_TYPE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
 #endif
-
-int measure_count = 0;
+*/
 
 
 int main(void)
@@ -208,7 +206,7 @@ int main(void)
 		I_DevicePrm.dpVersion = FLASH_ERASE_VALUE;
 		#endif
 
-		if (I_DevicePrm.dpVersion == FLASH_ERASE_VALUE)
+		if (I_DevicePrm.dpVersion == FLASH_ERASE_VALUE || is_flash_empty() )
 		{
 			// no application found. Nothing to do...
 
@@ -233,7 +231,7 @@ int main(void)
 			}
 			else
 			{
-				if ((I_DevicePrm.dpVerRdLn > 0) && (I_DevicePrm.dpVerRdLn  < (INNFLS_MAX_APP_SIZE + 1)))
+				if ((I_DevicePrm.dpVerRdLn > INNFLS_MIN_APP_SIZE) && (I_DevicePrm.dpVerRdLn  < (INNFLS_MAX_APP_SIZE + 1)))
 				{
 					// The new firmware is in limit
 					BlinkLed(1);	// GREEN LED 02
@@ -349,10 +347,8 @@ int main(void)
 		// firmware loading parameters failed.
 		// set the default parameters.
 
-#ifndef REMOVE_PARAMS
 		DevParms_Set_Default(&I_DevicePrm);
 		DevParms_Burn_Flash(&I_DevicePrm);
-#endif
 		
 		HAL_NVIC_SystemReset();
 	}

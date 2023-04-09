@@ -8,6 +8,10 @@
 #ifndef IO_MAPPING_H_
 #define IO_MAPPING_H_
 
+#define MAJOR_VERSION	5
+#define MINOR_VERSION	2
+
+
 
 //#define V3A_REV4 // deprecated
 //#define V4_REV2
@@ -43,9 +47,6 @@
 //#define  REMOVE_BOOT_CONSTANTS
 #define  REMOVE_DMA
 #define  REMOVE_ADC
-// #define  REMOVE_TIMERS
-// #define  REMOVE_PARAMS
-
 
 ///////////////
 // ADC ports //
