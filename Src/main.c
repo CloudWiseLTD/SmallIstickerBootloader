@@ -118,6 +118,7 @@ int main(void)
 {
  	uint32_t inx = 0;
 	uint32_t param_address = 0;
+	ErrorStatus status;
 
 	HAL_Init();
 
@@ -196,9 +197,19 @@ int main(void)
 	#endif
 #endif
 */
+	status = DevParms_Read_Flash(&I_DevicePrm, (u32)param_address);
+
+	if (status == SUCCESS)
+	{
+		if (I_DevicePrm.BootMajorVersion != MAJOR_VERSION || I_DevicePrm.BootMinorVersion != MINOR_VERSION )
+		{
+			DevParms_Set_Default(&I_DevicePrm);
+			DevParms_Burn_Flash(&I_DevicePrm);
+		}
+	}
 
 	// loading device existing parameters
-	if (DevParms_Read_Flash(&I_DevicePrm, (u32)param_address) == SUCCESS)
+	if (status == SUCCESS)
 	{
 		BlinkLed(1);	// GREEN LED 01
 
