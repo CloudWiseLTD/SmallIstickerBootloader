@@ -9,7 +9,7 @@
 #define IO_MAPPING_H_
 
 #define MAJOR_VERSION	5
-#define MINOR_VERSION	3
+#define MINOR_VERSION	4
 
 
 

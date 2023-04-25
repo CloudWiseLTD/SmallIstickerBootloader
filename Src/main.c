@@ -201,7 +201,7 @@ int main(void)
 
 	if (status == SUCCESS)
 	{
-		if (I_DevicePrm.BootMajorVersion != MAJOR_VERSION || I_DevicePrm.BootMinorVersion != MINOR_VERSION )
+		if (I_DevicePrm.BootMajorVersion != MAJOR_VERSION || I_DevicePrm.BootMinorVersion != MINOR_VERSION || I_DevicePrm.HardwareType != HARDWARE_TYPE)
 		{
 			DevParms_Set_Default(&I_DevicePrm);
 			DevParms_Burn_Flash(&I_DevicePrm);
