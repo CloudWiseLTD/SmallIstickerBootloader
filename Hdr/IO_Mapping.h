@@ -9,7 +9,7 @@
 #define IO_MAPPING_H_
 
 #define MAJOR_VERSION	5
-#define MINOR_VERSION	4
+#define MINOR_VERSION	5
 
 
 
@@ -224,11 +224,18 @@
 // LEDS //
 //////////
 
-#define IO_PORT_LED_RED				GPIOD
-#define IO_PIN_LED_RED				GPIO_PIN_3
+#ifdef V6_REV0
+	#define IO_PORT_LED_RED				GPIOD
+	#define IO_PIN_LED_RED				GPIO_PIN_2
+	#define IO_PORT_LED_GREEN			GPIOD
+	#define IO_PIN_LED_GREEN			GPIO_PIN_3
+#else
+	#define IO_PORT_LED_RED				GPIOD
+	#define IO_PIN_LED_RED				GPIO_PIN_3
+	#define IO_PORT_LED_GREEN			GPIOD
+	#define IO_PIN_LED_GREEN			GPIO_PIN_2
+#endif
 
-#define IO_PORT_LED_GREEN			GPIOD
-#define IO_PIN_LED_GREEN			GPIO_PIN_2
 
 #define IO_PORT_LED_BLUE			GPIOD
 #define IO_PIN_LED_BLUE				GPIO_PIN_4
