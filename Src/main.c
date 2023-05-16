@@ -126,15 +126,19 @@ int main(void)
 
 	#ifdef ENABLE_WATCHDOG
 		WD_Init();
-		WD_Refresh();
 	#endif
 
 	// disable this line on debugging
-	DBGMCU->APB1FZR1 = 0;
+	// DBGMCU->APB1FZR1 |= DBGMCU_APB1FZR1_DBG_IWDG_STOP;
 
 	Enable_GPIO_Clocks();
-
 	GPIO_Init();
+
+	#ifdef ENABLE_WATCHDOG
+		WD_Refresh();
+	#endif
+
+	RunTogleSequence(50);
 
 	// TMR2_Init();
 
@@ -156,6 +160,8 @@ int main(void)
 	BlinkSequence();
 	BlinkSequence();
 	GPS_GPIO_Close();
+
+	RunTogleSequence(50);
 
 	WD_Refresh();
 
@@ -224,6 +230,8 @@ int main(void)
 			// no application found. Nothing to do...
 
 			BlinkLed(0);
+
+			RunTogleSequence(15);
 
 			// the best thing to do is to disable all peripheral, enter stop mode
 			// and let the device to reach watch-dog state.
@@ -468,6 +476,8 @@ void CheckVoltages(void)
 
 	while (1)
 	{
+		RunTogleSequence(50);
+
 		// usb connected
 		if (HAL_GPIO_ReadPin(IO_PORT_USB_BUS,IO_PIN_USB_BUS))
 		{
@@ -480,7 +490,7 @@ void CheckVoltages(void)
 		{
 			// SetChargingMode1(1);
 
-			HAL_GPIO_WritePin(IO_PORT_CLK_OUT, IO_PIN_CLK_OUT, GPIO_PIN_SET);
+			// HAL_GPIO_WritePin(IO_PORT_CLK_OUT, IO_PIN_CLK_OUT, GPIO_PIN_SET);
 			HAL_GPIO_WritePin(IO_PORT_LED_GREEN, IO_PIN_LED_RED, GPIO_PIN_RESET);
 
 			for (i=0 ; i<3 ; i++)
@@ -490,7 +500,7 @@ void CheckVoltages(void)
 			}
 
 			HAL_GPIO_WritePin(IO_PORT_LED_GREEN, IO_PIN_LED_RED, GPIO_PIN_SET);
-			HAL_GPIO_WritePin(IO_PORT_CLK_OUT, IO_PIN_CLK_OUT, GPIO_PIN_RESET);
+			//HAL_GPIO_WritePin(IO_PORT_CLK_OUT, IO_PIN_CLK_OUT, GPIO_PIN_RESET);
 			HAL_Delay(10);
 		}
 
@@ -631,13 +641,14 @@ void WD_Init(void)
 	I_WD.Instance = IWDG;
 
 	HAL_IWDG_Init(&I_WD);
-
-	DBGMCU->APB1FZR1 |= DBGMCU_APB1FZR1_DBG_IWDG_STOP;
+	DBGMCU->APB1FZR1 = 0;
 }
 
 void WD_Refresh(void)
 {
 	HAL_IWDG_Refresh(&I_WD);
+
+	TogleTestPin();
 }
 
 

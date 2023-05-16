@@ -31,6 +31,32 @@
 	HAL_NVIC_DisableIRQ(TIM6_DAC_IRQn);//TMR6//
  }
 
+ void RunTogleSequence(unsigned char count)
+ {
+ 	unsigned char i = 0;
+
+ 	for (i=0; i<count ; i++)
+ 	{
+ 		TogleTestPin();
+ 		HAL_Delay(1);
+ 		TogleTestPin();
+ 		HAL_Delay(1);
+ 	}
+ }
+
+ void TogleTestPin(void)
+ {
+ 	static unsigned char count = 0;
+
+ 	// test pin
+ 	if ( (count % 2) == 0)
+ 		HAL_GPIO_WritePin(IO_PORT_CLK_OUT, IO_PIN_CLK_OUT, GPIO_PIN_SET);
+ 	else
+ 		HAL_GPIO_WritePin(IO_PORT_CLK_OUT, IO_PIN_CLK_OUT, GPIO_PIN_RESET);
+
+ 	count++;
+ }
+
 void Disable_Per_Clocks(void)
 {
 	__HAL_RCC_DMA1_CLK_DISABLE();
@@ -73,12 +99,13 @@ void GPIO_Init(void)
 	HAL_GPIO_Init(IO_PORT_FLASH_SPI_MOSI, &GPIO_InitStructure);
 	HAL_GPIO_WritePin(IO_PORT_FLASH_SPI_MOSI, IO_PIN_FLASH_SPI_MOSI, GPIO_PIN_SET);
 
+	GPIO_Config_Params(&GPIO_InitStructure, GPIO_MODE_OUTPUT_PP, IO_PIN_CLK_OUT , GPIO_NOPULL, GPIO_SPEED_FREQ_LOW);
+	HAL_GPIO_Init(IO_PORT_CLK_OUT, &GPIO_InitStructure);
+
 	// ???????????????
 	GPIO_Config_Params(&GPIO_InitStructure, GPIO_MODE_OUTPUT_PP, IO_PIN_LNA , GPIO_NOPULL, GPIO_SPEED_FREQ_LOW);
 	HAL_GPIO_Init(IO_PORT_LNA, &GPIO_InitStructure);
 	HAL_GPIO_WritePin(IO_PORT_LNA, IO_PIN_LNA, GPIO_PIN_RESET);
-
-
 }
 
 void Enable_GPIO_Clocks(void)

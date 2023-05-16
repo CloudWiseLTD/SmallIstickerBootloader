@@ -15,8 +15,8 @@
 
 //#define V3A_REV4 // deprecated
 //#define V4_REV2
-#define V5_REV9
-//#define V6_REV0
+//#define V5_REV9
+#define V6_REV0
 
 #ifdef V2E_REV3
 	#define HARDWARE_TYPE	1

@@ -60,6 +60,8 @@
  
 	 while(verByteLn >= 1024)
 	 {
+		 RunTogleSequence(17);
+
 		 if(Flash_Read_Data(wrBuff, 4, dataBuff , 1024))
 		 {	 
 			 if((((inFlsDstAdd) < INNFLS_STR_APP_ADD) || ((inFlsDstAdd) >= INNFLS_END_APP_ADD)))
@@ -243,6 +245,8 @@
 	 
 	 while(verByteLn >= 1024)
 	 {
+		RunTogleSequence(23);
+
 	 	inxJ = 0;
 		
 		 for(inxI = 0; inxI < 256 ; inxI++)

@@ -210,6 +210,8 @@ ErrorStatus DevParms_Burn_Flash(sDevice_Params* P_DevicePrms)
   
 	  while(verByteLn >= 1024)
 	  {
+		  RunTogleSequence(20);
+
 		  if(Flash_Read_Data(wrBuff, 4, dataBuff , 1024))
 		  {
 			  crc16Lcl = CRC16_Clc(dataBuff, 1024 , (*pCrc16));
