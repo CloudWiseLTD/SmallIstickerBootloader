@@ -124,14 +124,13 @@ int main(void)
 
 	hal_status = HAL_OK;
 
- 	// DBGMCU->APB1FZR1 |= DBGMCU_APB1FZR1_DBG_IWDG_STOP;
-	DBGMCU->APB1FZR1 &= ~DBGMCU_APB1FZR1_DBG_IWDG_STOP;
-
-
 	#ifdef ENABLE_WATCHDOG
 		WD_Init();
 		WD_Refresh();
 	#endif
+
+	// disable this line on debugging
+	DBGMCU->APB1FZR1 = 0;
 
 	Enable_GPIO_Clocks();
 
@@ -158,12 +157,15 @@ int main(void)
 	BlinkSequence();
 	GPS_GPIO_Close();
 
+	WD_Refresh();
+
 	// the test is moved to the application
 #ifndef  REMOVE_ADC
 	CheckVoltages();
 #endif
 
 	SystemClock_Config();
+
 	HAL_FLASH_Lock();
 	HAL_FLASH_Unlock();
 
@@ -227,6 +229,7 @@ int main(void)
 			// and let the device to reach watch-dog state.
 
 			DeInit_Peripherals();
+			// need to check again , is it perform stop ?????????????????
 			HAL_PWREx_EnterSTOP2Mode(PWR_STOPENTRY_WFI);
 		}
 		else
