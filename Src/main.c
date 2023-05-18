@@ -87,7 +87,7 @@ extern sDevice_Params I_DevicePrm;
 extern sADC_Msrs measurements;
 
 // watch dog //
-void WD_Init(void);
+HAL_StatusTypeDef WD_Init(void);
 void WD_Refresh(void);
 void CheckVoltages(void);
 void AllLights(void);
@@ -125,7 +125,7 @@ int main(void)
 	hal_status = HAL_OK;
 
 	#ifdef ENABLE_WATCHDOG
-		WD_Init();
+		status = WD_Init();
 	#endif
 
 	// disable this line on debugging
@@ -156,6 +156,19 @@ int main(void)
 #endif
 
 	Led_GPIO_Init();
+
+	if (status != HAL_OK)
+	{
+		for (unsigned i=0 ; i<5 ; i++)
+		{
+			BlinkLed(0);
+			BlinkLed(2);
+		}
+
+		HAL_Delay(300);
+		HAL_NVIC_SystemReset();
+	}
+
 	BlinkSequence();
 	BlinkSequence();
 	BlinkSequence();
@@ -633,15 +646,18 @@ void SystemClock_Config(void)
 
 
 
-void WD_Init(void)
+HAL_StatusTypeDef WD_Init(void)
 {
 	I_WD.Init.Prescaler = IWDG_PRESCALER_256;
 	I_WD.Init.Reload = 4095;
 	I_WD.Init.Window = 4095;
 	I_WD.Instance = IWDG;
 
-	HAL_IWDG_Init(&I_WD);
+	HAL_StatusTypeDef status = HAL_IWDG_Init(&I_WD);
 	DBGMCU->APB1FZR1 = 0;
+	DBGMCU->APB1FZR2 = 0;
+
+	return status;
 }
 
 void WD_Refresh(void)
